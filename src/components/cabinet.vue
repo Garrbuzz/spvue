@@ -7,17 +7,22 @@
 	 	<div class="flex-hcenter-wrap">
 		 	<table>
 		 		<tr>
-		 			<td class="td-left">Дата регистрации:</td>
-		 			<td class="td-right">20.01.2019</td>
+		 			<td class="td-left">Имя:</td>
+		 			<td class="td-right">{{userName}}</td>
 		 		</tr>
+		 		<tr>
+		 			<td class="td-left">Дата регистрации:</td>
+		 			<td class="td-right">{{reg_date}}</td>
+		 		</tr>
+		 		<tr>
+					<td class="td-left">Последний визит:</td>
+					<td class="td-right">25.01.2019</td>
+				</tr>
 		 	</table>
 		</div>
 		<div class="flex-hcenter-wrap">
 			<table>
-				<tr>
-					<td class="td-left">Последний визит:</td>
-					<td class="td-right">25.01.2019</td>
-				</tr>
+				
 			</table>
 		</div>		
 	</div>
@@ -30,9 +35,62 @@
 	<div class="flex-hcenter-wrap cont-2">
 		<button type="button" class="btn btn-light">Задать вопрос</button>
 	</div>
+	<div class="cabinet-logout">
+		
+		<button id="logout" v-on:click="logout">выйти</button>
+	</div>
+	
 </section>
 </template>
 <script>
+export default {
+	mounted(){
+
+		var xhr = new XMLHttpRequest();
+      	let body = new FormData();
+      	body.append("type", encodeURIComponent('getinf')); 
+      	  xhr.withCredentials = true; 
+          xhr.open('post', 'http://sptraining/php/cabinet.php', false);
+          xhr.send(body);
+          if (xhr.status != 200) {
+            console.log( xhr.status + ': ' + xhr.statusText ); 
+          } else {
+          		let userInfo = JSON.parse(xhr.responseText);
+          		console.log(userInfo);
+            	console.log(' регистрация:' + userInfo['reg_date']);
+            	this.reg_date = userInfo['reg_date'];
+            	this.userName = userInfo['first_name'] + ' ' + userInfo['last_name'];
+      	}
+	
+	
+
+	},
+	data(){
+		return{
+			reg_date:'',
+			userName:''
+		}
+	},
+	methods:{
+		
+    logout(){
+    
+    
+    var xhr = new XMLHttpRequest();
+      	let body = new FormData();
+      	body.append("type", encodeURIComponent('logout')); 
+      	  xhr.withCredentials = true; 
+          xhr.open('post', 'http://sptraining/php/cabinet.php', false);
+          xhr.send(body);
+          if (xhr.status != 200) {
+            // обработать ошибку
+            console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+          } else {
+            	this.$emit('onLogout');
+      	}
+		}
+	}
+}		
 	
 </script>
 <style lang="scss">

@@ -78,35 +78,7 @@
 				}
 
 
-			 	// fetch('http://sptraining/php/login.php', {method:"POST", headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" }, body: "type=" + type + "&name=" + encodeURIComponent(name.value) + "&pass=" + encodeURIComponent(pass.value)})  
-				 //  .then(  
-				 //    function(response) {  
-				 //      if (response.status !== 200) {  
-				 //        console.log('Looks like there was a problem. Status Code: ' +  
-				 //          response.status);  
-				 //        return;  
-				 //      }
-
-				 //      // Examine the text in the response
-				        
-				 //      response.json().then(function(dt) {  
-				 //        if(dt){
-				 //        	console.log(dt);
-				 //           	context.loginV = true;
-
-				 //        } else {
-				 //        	name.classList.add('wrong-login');
-				 //        	pass.classList.add('wrong-login');
-				 //        	document.querySelector('#wrong-login').innerHTML = 'Не верное имя пользователя или пароль';
-				 //        }
-				 //      });  
-				 //    }
-
-				 //  ) 
-
-				 //  .catch(function(err) {  
-				 //    console.log('Fetch Error :-S', err);  
-				 //  });
+			 
 
 				  
 				

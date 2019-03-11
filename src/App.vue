@@ -2,19 +2,19 @@
   <div id="cabinet">
     
     <Login v-if="state=='login'" @onLogin = "login"> </Login>
-    <Cab v-else="state=='cabinet'" ></Cab>
+    <Cab v-else="state=='cabinet'" @onLogout = "logout" ></Cab>
   </div>
 </template>
 
 <script>
 export default {
   // name: 'Cabinet',
-  created() {
+  mounted() {
 
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
-          xhr.open('post', 'http://sptraining/php/ses.php', false);
+          xhr.open('post', 'http://sptraining//php/ses.php', false);
           
           let data = new FormData();
           data.append("type","isSession");
@@ -24,6 +24,7 @@ export default {
           } else {
             if (xhr.responseText=='true'){
               console.log('aaaa  '+ xhr.responseText); 
+             
               this.state = 'cabinet';
             } else {
               console.log('bbbb  '+ xhr.responseText);
@@ -39,9 +40,13 @@ export default {
   methods: {
     login(){
       this.state = 'cabinet';
+    },
+    logout(){
+      this.state = 'login';
     }
   }
-}
+}  
+  
 </script>
 
 <style lang="scss">
