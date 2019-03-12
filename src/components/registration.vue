@@ -1,5 +1,4 @@
 <template>
-
 	<section class="grid-12">
 		<div class="register flex-hcenter-wrap">
 			<div>
@@ -13,8 +12,8 @@
 					<p id="vp"></p>
 					<p  class = "require">Повторите пароль:</p>
 					<input id = "pass2" type="password" placeholder="пароль" v-on:input="validpass">
-					<p>Дата рождения:</p>
-					<input  id = "birthday" type="date">
+					<p class = "require">Дата рождения:</p>
+					<input  id = "birthday" type="date" v-on:input="validbirthdey">
 					<p>Профессия:</p>
 					<input  id = "profession" type="text">
 					<p>Компания:</p>
@@ -22,7 +21,7 @@
 					<p>Телефон:</p>
 					<input  id = "phone" type="tel">
 					<p class = "require">Пол:</p>
-					<p><input type="radio" name="sex" value="male" v-on:input="validsex">Мужской<br>
+					<p id="sex"><input type="radio" name="sex" value="male" v-on:input="validsex">Мужской<br>
 					<input  type="radio" name="sex" value="famale" v-on:input="validsex">Женский</p>
 					<p>Skype:</p>
 					<input  id="skype" type="text">
@@ -38,21 +37,19 @@
 		</div>
 	</section>
 </template>
-
 <script>
 	export default{
 		data(){
 			return{
-				
-				
 				valpass: false,
+				valbirth: false,
 				vallogin:false,
 				valsex:false
 			}
 		},
 		computed: {
 			resValid: function(){
-				return this.valpass&&this.vallogin&&this.valsex;
+				return this.valpass&&this.vallogin&&this.valsex&&this.valbirth;
 			}
 		},		
 		methods:{
@@ -60,16 +57,21 @@
 				let p = document.querySelector('#vp');
 				if(document.querySelector('#pass1').value!=document.querySelector('#pass2').value){
 						p.innerHTML = 'Пароли не совпадают';
-					
 					this.valpass = false;
 				} else {
-					p.innerHTML = '';
+					if(document.querySelector('#pass1').value===''){
+					this.valpass = false;
+					document.querySelector('#vp').innerHTML = 'Пароль должен содержать хотя бы один символ';
+					document.location.href = '#login';
+					} else{
+						p.innerHTML = '';
 					this.valpass = true;
+					}
 				}
-				
-
+ 			},
+			validbirthdey(){
+				this.valbirth = true;
 			},
-			
 			validemail(){
 				let email = document.querySelector('#login');
 				if (!email.value.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
@@ -78,22 +80,31 @@
 				}else{
 					email.classList.remove('wrong');
 					this.vallogin = true;
-					
 				}
-
 			},
 			validsex(){
 				this.valsex = true;
 			},
 			sendData(){
-				if(document.querySelector('#pass1').value===''){
-					this.valpass = false;
-					document.querySelector('#vp').innerHTML = 'Пароль должен содержать хотя бы один символ';
-					document.location.href = '#login';
-
+				let fields = '';
+				if (!this.resValid){
+					
+					if (!this.valpass){
+						fields += 'Пароль, '; 
+					}  
+					if(!this.valbirth){
+						fields += 'День рождения, ';
+					} 
+					if(!this.vallogin){
+						fields += 'Email, ';
+					}	
+					if(!this.valsex){
+						fields += 'Пол';
+					}
+					alert('Не правильно заполнены поля ' + fields);
+				} else{
+					alert('thats good!');
 				}
-				
-				alert(this.resValid);
 			}	
 		}
 	}
@@ -130,9 +141,11 @@
 				color: #555;
 		}
 		input[type="radio"]{
-				width:4em;
-				text-align: center;
-				color: yellow;
+				width:2em;
+				margin-top: 0;
+				padding-top: 0;
+
+				
 		}
 		input[type="email"]:invalid{
 			color: red;
