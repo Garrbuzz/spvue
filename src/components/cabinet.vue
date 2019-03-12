@@ -80,7 +80,7 @@ export default {
       	let body = new FormData();
       	body.append("type", encodeURIComponent('logout')); 
       	  xhr.withCredentials = true; 
-          xhr.open('post', 'http://sptraining/php/cabinet.php', false);
+          xhr.open('post', 'http://sptraining/php/logout.php', false);
           xhr.send(body);
           if (xhr.status != 200) {
             // обработать ошибку

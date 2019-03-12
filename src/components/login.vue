@@ -15,7 +15,7 @@
 			<div class="buttons">
 				<div id="wrong-login" class="wrong-login"></div>
 				<div><button type="button" class="btn btn-success btn-login" v-on:click="login">Войти</button></div>
-				<div><button type="button" class="btn btn-light btn-register">Зарегистрироваться</button></div>
+				<div><button type="button" class="btn btn-light btn-register" v-on:click="registration">Зарегистрироваться</button></div>
 			</div>
 			
 		</div>
@@ -76,6 +76,7 @@
 					          pass.classList.add('wrong-login');
 					          document.querySelector('#wrong-login').innerHTML = 'Не верное имя пользователя или пароль';
 				}
+				
 
 
 			 
@@ -83,7 +84,10 @@
 				  
 				
 				
-			}
+			},
+				registration(){
+					this.$emit('onRegNeed')
+				}
 			
 			
 		}	

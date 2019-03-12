@@ -1,8 +1,9 @@
 <template>
   <div id="cabinet">
     
-    <Login v-if="state=='login'" @onLogin = "login"> </Login>
-    <Cab v-else="state=='cabinet'" @onLogout = "logout" ></Cab>
+    <Login v-if="state=='login'" @onLogin = "login" @onRegNeed = "registration"> </Login>
+    <Cab v-else-if="state=='cabinet'" @onLogout = "logout" ></Cab>
+    <Reg v-else="state=='registration'"></Reg>
   </div>
 </template>
 
@@ -10,7 +11,6 @@
 export default {
   // name: 'Cabinet',
   mounted() {
-
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
@@ -40,6 +40,10 @@ export default {
   methods: {
     login(){
       this.state = 'cabinet';
+    },
+    registration(){
+     
+      this.state = 'registration';
     },
     logout(){
       this.state = 'login';
