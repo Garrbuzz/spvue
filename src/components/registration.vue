@@ -10,19 +10,24 @@
 					<p class = "require">Пароль:</p>
 					<input id = "pass1" type="password" placeholder="пароль"  v-on:input="validpass">
 					<p id="vp"></p>
-					<p  class = "require">Повторите пароль:</p>
+					<p  class = "require">Пароль повторно:</p>
 					<input id = "pass2" type="password" placeholder="пароль" v-on:input="validpass">
+					<p >Имя:</p>
+					<input  id = "name" type="text">
+					<p >Фамилия:</p>
+					<input  id = "surname" type="text">
 					<p class = "require">Дата рождения:</p>
 					<input  id = "birthday" type="date" v-on:input="validbirthdey">
-					<p>Профессия:</p>
+					<p class = "require">Профессия:</p>
 					<input  id = "profession" type="text">
 					<p>Компания:</p>
 					<input  id = "company" type="text">
 					<p>Телефон:</p>
 					<input  id = "phone" type="tel">
 					<p class = "require">Пол:</p>
-					<p id="sex"><input type="radio" name="sex" value="male" v-on:input="validsex">Мужской<br>
-					<input  type="radio" name="sex" value="famale" v-on:input="validsex">Женский</p>
+					<div>
+					<input id="sex-m" type="radio" name="sex" value="male" v-on:input="validsex">Мужской<br>
+					<input  id="sex-f" type="radio" name="sex" value="famale" v-on:input="validsex">Женский</div>
 					<p>Skype:</p>
 					<input  id="skype" type="text">
 					<p>Telegram:</p>
@@ -41,15 +46,16 @@
 	export default{
 		data(){
 			return{
+				vallogin:false,
 				valpass: false,
 				valbirth: false,
-				vallogin:false,
+				valprof:false,
 				valsex:false
 			}
 		},
 		computed: {
 			resValid: function(){
-				return this.valpass&&this.vallogin&&this.valsex&&this.valbirth;
+				return this.valpass&&this.vallogin&&this.valsex&&this.valbirth&&this.valprof;
 			}
 		},		
 		methods:{
@@ -87,11 +93,18 @@
 			},
 			sendData(){
 				let fields = '';
+				if(document.querySelector('#profession').value === ''){
+					this.valprof = false;
+				}else{this.valprof = true};
+				
+				
 				if (!this.resValid){
-					
 					if (!this.valpass){
 						fields += 'Пароль, '; 
-					}  
+					}
+					if (!this.valprof){
+						fields += 'Профессия, '; 
+					}
 					if(!this.valbirth){
 						fields += 'День рождения, ';
 					} 
@@ -103,8 +116,45 @@
 					}
 					alert('Не правильно заполнены поля ' + fields);
 				} else{
-					alert('thats good!');
+					let body = new FormData();
+					let url = 'http://sptraining/php/users_fields.php';
+			        body.append("type","user_fields");
+			        let userData = req(url, body);
+					
+					userData.login = document.querySelector('#login').value;
+					userData.reg_date = new Date(); 
+					userData.password = document.querySelector('#pass1').value;	
+					userData.profession = document.querySelector('#profession').value;
+					userData.date_of_birth = document.querySelector('#birthday').value;
+					if (document.querySelector('#sex-m').cheked){
+						userData.sex = document.querySelector('#sex-m').value;
+					} else {
+						userData.sex = document.querySelector('#sex-f').value;
+					}
+					body = new FormData();
+					body = userData;
+					console.log(body);
+
+
+					
+					
 				}
+				function req(url, body){
+					let xhr = new XMLHttpRequest();
+					xhr.withCredentials = true;
+			        xhr.open('post', url, false);
+			        
+			        xhr.send(body);
+			  	        if (xhr.status != 200) {
+					          // обработать ошибку
+					          console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+					        } else{
+					        	return  JSON.parse(xhr.responseText);
+					        	
+					        	
+					        }
+				}
+
 			}	
 		}
 	}

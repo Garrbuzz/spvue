@@ -59,7 +59,7 @@ export default {
           		console.log(userInfo);
             	console.log(' регистрация:' + userInfo['reg_date']);
             	this.reg_date = userInfo['reg_date'];
-            	this.userName = userInfo['first_name'] + ' ' + userInfo['last_name'];
+            	this.userName = userInfo['name'] + ' ' + userInfo['surname'];
       	}
 	
 	
