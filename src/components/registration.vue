@@ -132,8 +132,13 @@
 						userData.sex = document.querySelector('#sex-f').value;
 					}
 					body = new FormData();
-					body = userData;
+					for (let key in userData) {
+  						body.append(key,userData[key]);
+					}
+					
+					
 					url = 'http://sptraining/php/registration.php';
+					console.log(body);
 					let resReg = req(url, body);
 					console.log(resReg);
 
