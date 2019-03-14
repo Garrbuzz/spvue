@@ -133,7 +133,9 @@
 					}
 					body = new FormData();
 					body = userData;
-					console.log(body);
+					url = 'http://sptraining/php/registration.php';
+					let resReg = req(url, body);
+					console.log(resReg);
 
 
 					
