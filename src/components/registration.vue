@@ -133,14 +133,18 @@
 					}
 					body = new FormData();
 					for (let key in userData) {
-  						body.append(key,userData[key]);
-					}
-					
-					
+  						body.append(key, userData[key]);
+  					}
 					url = 'http://sptraining/php/registration.php';
-					console.log(body);
+					
 					let resReg = req(url, body);
 					console.log(resReg);
+					for (let key1 in resReg) {
+  						body.append(key1, resReg[key1]);
+  						console.log('key: ' + key1);
+  						console.log('resReg[key]: ' + resReg[key1]);
+					}
+					
 
 
 					
