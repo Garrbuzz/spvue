@@ -56,40 +56,29 @@
 
 				let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
-			        xhr.open('post', 'http://sptraining/php/login.php', false);
+			        xhr.open('post', 'http://sptraining/php/login.php', true);
 			        var body = new FormData();
 			        body.append("type","login");
 			        body.append("name", encodeURIComponent(name.value));
 			        body.append("pass", encodeURIComponent(pass.value));
-			
-			       
-			        xhr.send(body);
-			  	        if (xhr.status != 200) {
-					          // обработать ошибку
-					          console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-					        } else 
-					        	if (xhr.responseText == 'true'){
+					xhr.onreadystatechange =  () => {
+		            	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+			            	if (xhr.responseText == 'true'){
 					            	this.loginV = true;   	
 					          } else{
 					          console.log('response: ' + xhr.responseText);
 					          name.classList.add('wrong-login');
 					          pass.classList.add('wrong-login');
 					          document.querySelector('#wrong-login').innerHTML = 'Не верное имя пользователя или пароль';
-				}
-				
-
-
-			 
-
-				  
-				
-				
+		               		}
+		            	}
+		            }	 
+		              
+			        xhr.send(body);
 			},
 				registration(){
 					this.$emit('onRegNeed')
 				}
-			
-			
 		}	
 	}
 

@@ -14,23 +14,32 @@ export default {
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
-          xhr.open('post', 'http://sptraining//php/ses.php', false);
+          xhr.open('post', 'http://sptraining//php/ses.php', true);
           
           let data = new FormData();
           data.append("type","isSession");
-          xhr.send(data);
-          if (xhr.status != 200) {
-              console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-          } else {
-            if (xhr.responseText=='true'){
-              console.log('aaaa  '+ xhr.responseText); 
-             
-              this.state = 'cabinet';
-            } else {
-              console.log('bbbb  '+ xhr.responseText);
+          xhr.onreadystatechange =  () => {
+            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+              if (xhr.responseText=='true'){
+                console.log('aaaa  '+ xhr.responseText); 
+                this.state = 'cabinet';  
+                console.log(xhr.responseText);
+              }
             }
+           } 
+          xhr.send(data);
+      //     if (xhr.status != 200) {
+      //         console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+      //     } else {
+      //       if (xhr.responseText=='true'){
+      //         console.log('aaaa  '+ xhr.responseText); 
+             
+      //         this.state = 'cabinet';
+      //       } else {
+      //         console.log('bbbb  '+ xhr.responseText);
+      //       }
             
-      } 
+      // } 
   },
   data () {
     return {

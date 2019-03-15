@@ -120,6 +120,7 @@
 					let url = 'http://sptraining/php/users_fields.php';
 			        body.append("type","user_fields");
 			        let userData = req(url, body);
+			        console.log('userData: ' + userData);
 					
 					userData.login = document.querySelector('#login').value;
 					userData.reg_date = new Date(); 
@@ -138,7 +139,7 @@
 					url = 'http://sptraining/php/registration.php';
 					
 					let resReg = req(url, body);
-					console.log(resReg);
+					console.log('resReg: ' + resReg);
 					for (let key1 in resReg) {
   						body.append(key1, resReg[key1]);
   						console.log('key: ' + key1);
@@ -153,17 +154,23 @@
 				function req(url, body){
 					let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
-			        xhr.open('post', url, false);
+			        xhr.open('post', url, true);
+
+			        xhr.onreadystatechange =  () => {
+			            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+			                return  JSON.parse(xhr.responseText);
+			            }
+		            } 
 			        
 			        xhr.send(body);
-			  	        if (xhr.status != 200) {
-					          // обработать ошибку
-					          console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-					        } else{
-					        	return  JSON.parse(xhr.responseText);
+			  	       //  if (xhr.status != 200) {
+					        //   // обработать ошибку
+					        //   console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+					        // } else{
+					        // 	return  JSON.parse(xhr.responseText);
 					        	
 					        	
-					        }
+					        // }
 				}
 
 			}	
