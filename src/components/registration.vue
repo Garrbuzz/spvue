@@ -119,59 +119,94 @@
 					let body = new FormData();
 					let url = 'http://sptraining/php/users_fields.php';
 			        body.append("type","user_fields");
-			        let userData = req(url, body);
-			        console.log('userData: ' + userData);
-					
-					userData.login = document.querySelector('#login').value;
-					userData.reg_date = new Date(); 
-					userData.password = document.querySelector('#pass1').value;	
-					userData.profession = document.querySelector('#profession').value;
-					userData.date_of_birth = document.querySelector('#birthday').value;
-					if (document.querySelector('#sex-m').cheked){
-						userData.sex = document.querySelector('#sex-m').value;
-					} else {
-						userData.sex = document.querySelector('#sex-f').value;
-					}
-					body = new FormData();
-					for (let key in userData) {
-  						body.append(key, userData[key]);
-  					}
-					url = 'http://sptraining/php/registration.php';
-					
-					let resReg = req(url, body);
-					console.log('resReg: ' + resReg);
-					for (let key1 in resReg) {
-  						body.append(key1, resReg[key1]);
-  						console.log('key: ' + key1);
-  						console.log('resReg[key]: ' + resReg[key1]);
-					}
-					
-
-
-					
-					
-				}
-				function req(url, body){
-					let xhr = new XMLHttpRequest();
+			        let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
 			        xhr.open('post', url, true);
 
 			        xhr.onreadystatechange =  () => {
 			            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-			                return  JSON.parse(xhr.responseText);
+			            	console.log(xhr.responseText);
+			                let userData = JSON.parse(xhr.responseText);
+			                console.log('userData: ');
+			                console.log(userData);
+					
+							userData.login = document.querySelector('#login').value;
+							userData.reg_date = new Date(); 
+							userData.password = document.querySelector('#pass1').value;	
+							userData.profession = document.querySelector('#profession').value;
+							userData.date_of_birth = document.querySelector('#birthday').value;
+							if (document.querySelector('#sex-m').cheked){
+								userData.sex = document.querySelector('#sex-m').value;
+							} else {
+								userData.sex = document.querySelector('#sex-f').value;
+							}
+
+							let body1 = new FormData();
+							for (let key in userData) {
+		  						body1.append(key, userData[key]);
+		  					}
+							url = 'http://sptraining/php/registration.php';
+							let xhr1 = new XMLHttpRequest();
+							xhr1.withCredentials = true;
+					        xhr1.open('post', url, true);
+					        xhr1.onreadystatechange =  () => {
+			            	if(xhr1.readyState === XMLHttpRequest.DONE && xhr1.status === 200) {
+			            		console.log('req2 : ' );
+			            		console.log(JSON.parse(xhr1.responseText));
+
+
+			            		}
+			            	}
+
+			            	xhr1.send(body1);
+
 			            }
 		            } 
 			        
 			        xhr.send(body);
-			  	       //  if (xhr.status != 200) {
-					        //   // обработать ошибку
-					        //   console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-					        // } else{
-					        // 	return  JSON.parse(xhr.responseText);
-					        	
-					        	
-					        // }
+
+
+
+
+
+			       
+			        
+					
+					
+					
+					// console.log('resReg: ' + resReg);
+					// for (let key1 in resReg) {
+  			// 			body.append(key1, resReg[key1]);
+  			// 			console.log('key: ' + key1);
+  			// 			console.log('resReg[key]: ' + resReg[key1]);
+					// }
+					
+
+
+					
+					
 				}
+				// function req(url, body){
+				// 	let xhr = new XMLHttpRequest();
+				// 	xhr.withCredentials = true;
+			 //        xhr.open('post', url, true);
+
+			 //        xhr.onreadystatechange =  () => {
+			 //            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+			 //                return  JSON.parse(xhr.responseText);
+			 //            }
+		  //           } 
+			        
+			 //        xhr.send(body);
+			 //  	       //  if (xhr.status != 200) {
+				// 	        //   // обработать ошибку
+				// 	        //   console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+				// 	        // } else{
+				// 	        // 	return  JSON.parse(xhr.responseText);
+					        	
+					        	
+				// 	        // }
+				// }
 
 			}	
 		}
