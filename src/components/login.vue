@@ -39,8 +39,7 @@
 
 				let name = document.querySelector('#login');
 				let pass = document.querySelector('#pass');
-				let context = this;
-				let type = 'login';
+			
 				
 				name.onfocus = function(){
 					name.classList.remove('wrong-login');
@@ -56,13 +55,16 @@
 
 				let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
-			        xhr.open('post', 'http://sptraining/php/login.php', true);
+			        xhr.open('post', './php/login.php', true);
+			        // xhr.setRequestHeader('Content-Type', 'application/multipart/form-data');
+			        
 			        var body = new FormData();
 			        body.append("type","login");
 			        body.append("name", encodeURIComponent(name.value));
 			        body.append("pass", encodeURIComponent(pass.value));
 					xhr.onreadystatechange =  () => {
 		            	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+		            		console.log(xhr.responseText);
 			            	if (xhr.responseText == 'true'){
 					            	this.loginV = true;   	
 					          } else{

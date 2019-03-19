@@ -5,8 +5,10 @@
 				<!-- {{loginV}} -->
 				<fieldset>	
 					<legend>Введите данные:</legend>
-					<p class = "require">Адрес электронной почты (он же логин):</p>
+					<p class = "require" id = "p-login">Адрес электронной почты (он же логин):</p>
+					
 					<input id="login" type="email"  placeholder="example@example.com" v-on:input="validemail">
+					<p id="loginBusy" class = "wrong-login"></p>
 					<p class = "require">Пароль:</p>
 					<input id = "pass1" type="password" placeholder="пароль"  v-on:input="validpass">
 					<p id="vp"></p>
@@ -153,7 +155,16 @@
 			            	if(xhr1.readyState === XMLHttpRequest.DONE && xhr1.status === 200) {
 			            		console.log('req2 : ' );
 			            		console.log(JSON.parse(xhr1.responseText));
-
+			            		document.location.href = '#p-login';
+			            		if (JSON.parse(xhr1.responseText) === 'loginIsBusy'){
+			            			document.querySelector('#loginBusy').innerHTML = 'Адрес уже используется  качестве логина. ';
+			            		} else {
+			            			document.querySelector('#loginBusy').innerHTML = '';
+			            			alert('Регистрация успешна.');
+			            			this.$emit('onLogout');
+			            		}
+			            		
+								
 
 			            		}
 			            	}
@@ -164,49 +175,7 @@
 		            } 
 			        
 			        xhr.send(body);
-
-
-
-
-
-			       
-			        
-					
-					
-					
-					// console.log('resReg: ' + resReg);
-					// for (let key1 in resReg) {
-  			// 			body.append(key1, resReg[key1]);
-  			// 			console.log('key: ' + key1);
-  			// 			console.log('resReg[key]: ' + resReg[key1]);
-					// }
-					
-
-
-					
-					
 				}
-				// function req(url, body){
-				// 	let xhr = new XMLHttpRequest();
-				// 	xhr.withCredentials = true;
-			 //        xhr.open('post', url, true);
-
-			 //        xhr.onreadystatechange =  () => {
-			 //            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-			 //                return  JSON.parse(xhr.responseText);
-			 //            }
-		  //           } 
-			        
-			 //        xhr.send(body);
-			 //  	       //  if (xhr.status != 200) {
-				// 	        //   // обработать ошибку
-				// 	        //   console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-				// 	        // } else{
-				// 	        // 	return  JSON.parse(xhr.responseText);
-					        	
-					        	
-				// 	        // }
-				// }
 
 			}	
 		}

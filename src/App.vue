@@ -3,7 +3,7 @@
     
     <Login v-if="state=='login'" @onLogin = "login" @onRegNeed = "registration"> </Login>
     <Cab v-else-if="state=='cabinet'" @onLogout = "logout" ></Cab>
-    <Reg v-else="state=='registration'"></Reg>
+    <Reg v-else="state=='registration'" @onLogout = "logout"></Reg>
   </div>
 </template>
 
@@ -28,18 +28,7 @@ export default {
             }
            } 
           xhr.send(data);
-      //     if (xhr.status != 200) {
-      //         console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-      //     } else {
-      //       if (xhr.responseText=='true'){
-      //         console.log('aaaa  '+ xhr.responseText); 
-             
-      //         this.state = 'cabinet';
-      //       } else {
-      //         console.log('bbbb  '+ xhr.responseText);
-      //       }
-            
-      // } 
+ 
   },
   data () {
     return {
