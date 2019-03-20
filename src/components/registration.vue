@@ -119,20 +119,24 @@
 					alert('Не правильно заполнены поля ' + fields);
 				} else{
 					let body = new FormData();
-					let url = 'http://sptraining/php/users_fields.php';
+					let url = '../php/users_fields.php';
 			        body.append("type","user_fields");
 			        let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
 			        xhr.open('post', url, true);
-
+			        let male = document.querySelector('#sex-m').checked;
+			        let famale = document.querySelector('#sex-f').checked;
+			        console.log(male);
+			        console.log(famale);
 			        xhr.onreadystatechange =  () => {
 			            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-			            	console.log(xhr.responseText);
-			                let userData = JSON.parse(xhr.responseText);
-			                console.log('userData: ');
-			                console.log(userData);
-					
-							userData.login = document.querySelector('#login').value;
+			            	let userData = JSON.parse(xhr.responseText);
+			                if (male) {
+			                	userData.sex = 'male';
+			                } else if (famale){
+			                	userData.sex = 'famale';
+			                }
+			              	userData.login = document.querySelector('#login').value;
 							userData.reg_date = new Date(); 
 							userData.password = document.querySelector('#pass1').value;	
 							userData.name = document.querySelector('#name').value;
@@ -143,28 +147,21 @@
 							userData.date_of_birth = document.querySelector('#birthday').value;
 							userData.skype = document.querySelector('#skype').value;
 							userData.telegram = document.querySelector('#telegram').value;
-							if (document.querySelector('#sex-m').cheked){
-								userData.sex = document.querySelector('#sex-m').value;
-							} else {
-								userData.sex = document.querySelector('#sex-f').value;
-							}
-
 							let body1 = new FormData();
 							for (let key in userData) {
 		  						body1.append(key, userData[key]);
 		  					}
-							url = 'http://sptraining/php/registration.php';
+							url = '../php/registration.php';
 							let xhr1 = new XMLHttpRequest();
 							xhr1.withCredentials = true;
 					        xhr1.open('post', url, true);
 					        xhr1.onreadystatechange =  () => {
 			            	if(xhr1.readyState === XMLHttpRequest.DONE && xhr1.status === 200) {
-			            		console.log('req2 : ' );
-			            		console.log(JSON.parse(xhr1.responseText));
+			            		console.log(xhr1.responseText);
 			            		document.location.href = '#p-login';
 			            		if (JSON.parse(xhr1.responseText) === 'loginIsBusy'){
 			            			document.querySelector('#loginBusy').innerHTML = 'Адрес уже используется  качестве логина. ';
-			            		} else {
+			            		} else if ( (JSON.parse(xhr1.responseText) === true)){
 			            			document.querySelector('#loginBusy').innerHTML = '';
 			            			alert('Регистрация успешна.');
 			            			this.$emit('onLogout');

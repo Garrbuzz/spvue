@@ -55,7 +55,7 @@
 
 				let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
-			        xhr.open('post', 'http://sptraining/php/login.php', true);
+			        xhr.open('post', '../php/login.php', true);
 			        var body = new FormData();
 			        body.append("type","login");
 			        body.append("name", name.value);

@@ -14,7 +14,7 @@ export default {
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
-          xhr.open('post', 'http://sptraining//php/ses.php', true);
+          xhr.open('post', '../php/ses.php', true);
           
           let data = new FormData();
           data.append("type","isSession");

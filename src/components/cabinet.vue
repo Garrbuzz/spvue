@@ -50,7 +50,7 @@ export default {
       	let body = new FormData();
       	body.append("type", encodeURIComponent('getinf')); 
       	  xhr.withCredentials = true; 
-          xhr.open('post', 'http://sptraining/php/cabinet.php', false);
+          xhr.open('post', '../php/cabinet.php', false);
           xhr.send(body);
           if (xhr.status != 200) {
             console.log( xhr.status + ': ' + xhr.statusText ); 
@@ -81,7 +81,7 @@ export default {
       	let body = new FormData();
       	body.append("type", encodeURIComponent('logout')); 
       	  xhr.withCredentials = true; 
-          xhr.open('post', 'http://sptraining/php/logout.php', false);
+          xhr.open('post', '../php/logout.php', false);
           xhr.send(body);
           if (xhr.status != 200) {
             // обработать ошибку
