@@ -60,6 +60,7 @@ export default {
             	console.log(' регистрация:' + userInfo['reg_date']);
             	this.reg_date = userInfo['reg_date'];
             	this.userName = userInfo['name'] + ' ' + userInfo['surname'];
+            	console.log('ім`я користувача: '  + userInfo['name']);
       	}
 	
 	

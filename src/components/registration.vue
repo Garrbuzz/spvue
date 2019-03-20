@@ -135,8 +135,14 @@
 							userData.login = document.querySelector('#login').value;
 							userData.reg_date = new Date(); 
 							userData.password = document.querySelector('#pass1').value;	
+							userData.name = document.querySelector('#name').value;
+							userData.surname = document.querySelector('#surname').value;
 							userData.profession = document.querySelector('#profession').value;
+							userData.company = document.querySelector('#company').value;
+							userData.phone1 = document.querySelector('#phone').value;
 							userData.date_of_birth = document.querySelector('#birthday').value;
+							userData.skype = document.querySelector('#skype').value;
+							userData.telegram = document.querySelector('#telegram').value;
 							if (document.querySelector('#sex-m').cheked){
 								userData.sex = document.querySelector('#sex-m').value;
 							} else {

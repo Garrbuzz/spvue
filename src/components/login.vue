@@ -55,13 +55,11 @@
 
 				let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
-			        xhr.open('post', './php/login.php', true);
-			        // xhr.setRequestHeader('Content-Type', 'application/multipart/form-data');
-			        
+			        xhr.open('post', 'http://sptraining/php/login.php', true);
 			        var body = new FormData();
 			        body.append("type","login");
-			        body.append("name", encodeURIComponent(name.value));
-			        body.append("pass", encodeURIComponent(pass.value));
+			        body.append("name", name.value);
+			        body.append("pass", pass.value);
 					xhr.onreadystatechange =  () => {
 		            	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 		            		console.log(xhr.responseText);
