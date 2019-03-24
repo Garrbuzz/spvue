@@ -119,7 +119,7 @@
 					alert('Не правильно заполнены поля ' + fields);
 				} else{
 					let body = new FormData();
-					let url = 'http://sptraining/php/users_fields.php';
+					let url = window.location.origin + '/php/users_fields.php';
 			        body.append("type","user_fields");
 			        let xhr = new XMLHttpRequest();
 					xhr.withCredentials = true;
@@ -151,7 +151,7 @@
 							for (let key in userData) {
 		  						body1.append(key, userData[key]);
 		  					}
-							url = 'http://sptraining/php/registration.php';
+							url = window.location.origin + '/php/registration.php';
 							let xhr1 = new XMLHttpRequest();
 							xhr1.withCredentials = true;
 					        xhr1.open('post', url, true);

@@ -78,7 +78,21 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    proxy: {
+          '/php': {
+            target: {
+              "host": "sptraining",
+              "protocol": 'http:',
+              "port": 80
+            },
+            ignorePath: false,
+            changeOrigin: true,
+            secure: false
+          }
+        }
+            
+        
   },
   performance: {
     hints: false

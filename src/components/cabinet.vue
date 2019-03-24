@@ -1,5 +1,7 @@
 <template>
+
 	<section class="grid-12 cabinet">
+	
 	<div class="flex-hcenter-wrap title">
 		<h1>Личный кабинет</h1>
 	</div>
@@ -27,7 +29,7 @@
 		</div>		
 	</div>
 	<div class="flex-hcenter-wrap cont-2">
-		<button type="button" class="btn btn-primary">Пройти тест</button>
+		<button type="button" class="btn btn-primary" v-on:click ="$emit('tests')">Пройти тест</button>
 	</div>		
 	<div class="flex-hcenter-wrap cont-2">
 		<button type="button" class="btn btn-light">История прохождения тестов</button>
@@ -50,7 +52,7 @@ export default {
       	let body = new FormData();
       	body.append("type", encodeURIComponent('getinf')); 
       	  xhr.withCredentials = true; 
-          xhr.open('post', 'http://sptraining/php/cabinet.php', false);
+          xhr.open('post', window.location.origin + '/php/cabinet.php', false);
           xhr.send(body);
           if (xhr.status != 200) {
             console.log( xhr.status + ': ' + xhr.statusText ); 
@@ -69,27 +71,26 @@ export default {
 	data(){
 		return{
 			reg_date:'',
-			userName:''
+			userName:'',
+			state:''
 		}
 	},
 	methods:{
 		
-    logout(){
-    
-    
-    var xhr = new XMLHttpRequest();
-      	let body = new FormData();
-      	body.append("type", encodeURIComponent('logout')); 
-      	  xhr.withCredentials = true; 
-          xhr.open('post', 'http://sptraining/php/logout.php', false);
-          xhr.send(body);
-          if (xhr.status != 200) {
-            // обработать ошибку
-            console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-          } else {
-            	this.$emit('onLogout');
-      	}
-		}
+	    logout(){
+	        let xhr = new XMLHttpRequest();
+	      	let body = new FormData();
+	      	body.append("type", encodeURIComponent('logout')); 
+	      	  xhr.withCredentials = true; 
+	          xhr.open('post', window.location.origin + '/php/logout.php', false);
+	          xhr.send(body);
+	          if (xhr.status != 200) {
+	            // обработать ошибку
+	            console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+	          } else {
+	            	this.$emit('onLogout');
+	      	}
+			}
 	}
 }		
 	

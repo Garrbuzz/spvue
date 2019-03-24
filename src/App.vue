@@ -2,8 +2,9 @@
   <div id="cabinet">
     
     <Login v-if="state=='login'" @onLogin = "login" @onRegNeed = "registration"> </Login>
-    <Cab v-else-if="state=='cabinet'" @onLogout = "logout" ></Cab>
-    <Reg v-else="state=='registration'" @onLogout = "logout"></Reg>
+    <Cab v-else-if="state=='cabinet'" @onLogout = "logout" @tests = "goToTests"></Cab>
+    <Reg v-else-if="state=='registration'" @onLogout = "logout"></Reg>
+    <Tests v-if="state=='tests'"> </Tests>
   </div>
 </template>
 
@@ -14,7 +15,7 @@ export default {
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
-          xhr.open('post', 'http://sptraining/php/ses.php', true);
+          xhr.open('post', './php/ses.php', true);
           
           let data = new FormData();
           data.append("type","isSession");
@@ -45,6 +46,9 @@ export default {
     },
     logout(){
       this.state = 'login';
+    },
+    goToTests(){
+      this.state = 'tests';
     }
   }
 }  
