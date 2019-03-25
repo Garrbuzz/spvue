@@ -4,6 +4,7 @@ import Login from './components/login.vue';
 import Cab from './components/cabinet.vue';
 import Reg from './components/registration.vue';
 import Tests from './components/tests.vue';
+
 Vue.component('Login', Login);
 Vue.component('Cab', Cab);
 Vue.component('Reg', Reg);

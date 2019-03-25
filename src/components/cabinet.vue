@@ -1,53 +1,40 @@
 <template>
-
 	<section class="grid-12 cabinet">
-	
 	<div class="flex-hcenter-wrap title">
 		<h1>Личный кабинет</h1>
 	</div>
-	<div class="flex-wrap-sp cont-1">
+	<div class="cont-1">
 	 	<div class="flex-hcenter-wrap">
 		 	<table>
 		 		<tr>
-		 			<td class="td-left">Имя:</td>
-		 			<td class="td-right">{{userName}}</td>
+		 			<td class="td-left">Пользователь:</td>
+		 			<td class="td-right">{{login}}</td>
 		 		</tr>
 		 		<tr>
 		 			<td class="td-left">Дата регистрации:</td>
 		 			<td class="td-right">{{reg_date}}</td>
 		 		</tr>
-		 		<tr>
-					<td class="td-left">Последний визит:</td>
-					<td class="td-right">25.01.2019</td>
-				</tr>
+		 		
 		 	</table>
 		</div>
-		<div class="flex-hcenter-wrap">
-			<table>
-				
-			</table>
-		</div>		
+		<div class="flex-hcenter-wrap cont-2">
+			<button type="button" class="btn btn-light" v-on:click ="$emit('tests')">Тесты</button>
+		</div>			
 	</div>
-	<div class="flex-hcenter-wrap cont-2">
-		<button type="button" class="btn btn-primary" v-on:click ="$emit('tests')">Пройти тест</button>
-	</div>		
-	<div class="flex-hcenter-wrap cont-2">
-		<button type="button" class="btn btn-light">История прохождения тестов</button>
-	</div>
-	<div class="flex-hcenter-wrap cont-2">
-		<button type="button" class="btn btn-light">Задать вопрос</button>
-	</div>
-	<div class="cabinet-logout">
-		
-		<button id="logout" v-on:click="logout">выйти</button>
+	<div class="cont-right">
+		<div class="cabinet-logout">
+			<span>{{login}}&nbsp&nbsp&nbsp</span><button id="logout" v-on:click="logout">выйти</button>
+		</div>
+			
 	</div>
 	
 </section>
 </template>
 <script>
-export default {
-	mounted(){
 
+export default{
+	
+	mounted(){
 		var xhr = new XMLHttpRequest();
       	let body = new FormData();
       	body.append("type", encodeURIComponent('getinf')); 
@@ -61,22 +48,18 @@ export default {
           		console.log(userInfo);
             	console.log(' регистрация:' + userInfo['reg_date']);
             	this.reg_date = userInfo['reg_date'];
-            	this.userName = userInfo['name'] + ' ' + userInfo['surname'];
+            	this.login = userInfo['login'];
             	console.log('ім`я користувача: '  + userInfo['name']);
       	}
-	
-	
-
 	},
 	data(){
 		return{
+			login:'',
 			reg_date:'',
-			userName:'',
 			state:''
 		}
 	},
 	methods:{
-		
 	    logout(){
 	        let xhr = new XMLHttpRequest();
 	      	let body = new FormData();
@@ -93,9 +76,8 @@ export default {
 			}
 	}
 }		
-	
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	$font:verdana;
 	$colBlue:#0095a6;
 	$colBlueBtnHover:#22a7c8;
@@ -109,6 +91,8 @@ export default {
 		justify-content: center;
 		flex-wrap: wrap;
 	}
+
+
 	.cabinet{
 		.title{
 			grid-column: 1/13;
@@ -116,24 +100,23 @@ export default {
 				font-family: $font;
 				font-weight: 100;
 				color:$colBlue;
+				font-size: 1.8em;
 			}
 		}
 		.cont-1{
 			grid-column: 2/12;
-			table{
-				margin:1em 0;	
-			}
 			.td-left{
-				width: 20em;
+				width: 15em;
 				padding: 0.5em 0	em;
 				color:$colBlue;
 				font-size:0.8em;
-				
+			}
+			table{
+				margin:1em 0;	
 			}
 			.td-right{
-				color:$colBlue;
-				
-			}
+			color:$colBlue;
+			}		
 			
 			
 		}
@@ -143,7 +126,7 @@ export default {
 				margin: 2em 0 1em 0;
 				background:$colBlue;
 				border-color:$colBlue;
-				padding: 0.3em 2em;
+				padding: 0 2em;
 				font-size: 1.5em;
 
 			}
@@ -159,5 +142,32 @@ export default {
 				font-size: 1.1em;
 			}
 		}
+	}
+	.cabinet-logout{
+		position:absolute;
+		right:1.5em;
+		top:1em;
+		button{
+			border-radius: 0.2em;
+			color:#fd9017;
+			border: 1px solid #eaeaea;
+			background: rgba(220, 220, 230, 0.5);
+			padding:0.1em 1em;
+			font-size: 0.8em;
+		}
+
+		button:hover{
+			color:$colBlue;
+			cursor: pointer;
+			background: rgba(255,255,255,0.75);
+		}	
+		p{
+			margin:.4em;
+		}
+		span{
+			font-size: 0.8em;
+			color:$colBlue;
+		}
+
 	}
 </style>

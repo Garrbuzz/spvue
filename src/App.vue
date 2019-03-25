@@ -1,10 +1,11 @@
 <template>
   <div id="cabinet">
     
-    <Login v-if="state=='login'" @onLogin = "login" @onRegNeed = "registration"> </Login>
+    <Login v-if="state=='login'" @onLogin = "toCabinet" @onRegNeed = "registration"> </Login>
     <Cab v-else-if="state=='cabinet'" @onLogout = "logout" @tests = "goToTests"></Cab>
     <Reg v-else-if="state=='registration'" @onLogout = "logout"></Reg>
-    <Tests v-if="state=='tests'"> </Tests>
+    <Tests v-if="state=='tests'" @backToCab="toCabinet"> </Tests>
+    
   </div>
 </template>
 
@@ -37,7 +38,7 @@ export default {
     }
   },
   methods: {
-    login(){
+    toCabinet(){
       this.state = 'cabinet';
     },
     registration(){
