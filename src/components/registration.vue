@@ -126,8 +126,6 @@
 			        xhr.open('post', url, true);
 			        let male = document.querySelector('#sex-m').checked;
 			        let famale = document.querySelector('#sex-f').checked;
-			        console.log(male);
-			        console.log(famale);
 			        xhr.onreadystatechange =  () => {
 			            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 			            	let userData = JSON.parse(xhr.responseText);
@@ -157,7 +155,6 @@
 					        xhr1.open('post', url, true);
 					        xhr1.onreadystatechange =  () => {
 			            	if(xhr1.readyState === XMLHttpRequest.DONE && xhr1.status === 200) {
-			            		console.log(xhr1.responseText);
 			            		document.location.href = '#p-login';
 			            		if (JSON.parse(xhr1.responseText) === 'loginIsBusy'){
 			            			document.querySelector('#loginBusy').innerHTML = 'Адрес уже используется  качестве логина. ';

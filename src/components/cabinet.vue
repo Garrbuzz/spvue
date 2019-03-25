@@ -42,14 +42,11 @@ export default{
           xhr.open('post', window.location.origin + '/php/cabinet.php', false);
           xhr.send(body);
           if (xhr.status != 200) {
-            console.log( xhr.status + ': ' + xhr.statusText ); 
           } else {
           		let userInfo = JSON.parse(xhr.responseText);
-          		console.log(userInfo);
-            	console.log(' регистрация:' + userInfo['reg_date']);
             	this.reg_date = userInfo['reg_date'];
             	this.login = userInfo['login'];
-            	console.log('ім`я користувача: '  + userInfo['name']);
+            	console.log('ім`я користувача: '  + userInfo['login']);
       	}
 	},
 	data(){

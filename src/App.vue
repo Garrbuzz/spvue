@@ -16,16 +16,14 @@ export default {
       let type = 'session';
       let xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
-          xhr.open('post', './php/ses.php', true);
+          xhr.open('post', window.location.origin +'/php/ses.php', true);
           
           let data = new FormData();
           data.append("type","isSession");
           xhr.onreadystatechange =  () => {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
               if (xhr.responseText=='true'){
-                console.log('aaaa  '+ xhr.responseText); 
-                this.state = 'cabinet';  
-                console.log(xhr.responseText);
+                  this.state = 'cabinet';  
               }
             }
            } 
