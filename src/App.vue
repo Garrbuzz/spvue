@@ -4,14 +4,16 @@
     <Login v-if="state=='login'" @onLogin = "toCabinet" @onRegNeed = "registration"> </Login>
     <Cab v-else-if="state=='cabinet'" @onLogout = "logout" @tests = "goToTests"></Cab>
     <Reg v-else-if="state=='registration'" @onLogout = "logout"></Reg>
-    <Tests v-if="state=='tests'" @backToCab="toCabinet"> </Tests>
+    <Tests v-else-if="state=='tests'" @backToCab="toCabinet" @toTestsApp = 'toTestsApp'> </Tests>
+    <TestsApp v-if ="state=='testsApp'" :currentTest="currentTest"></TestsApp>  
     
   </div>
 </template>
 
 <script>
 export default {
-  // name: 'Cabinet',
+
+
   mounted() {
       let type = 'session';
       let xhr = new XMLHttpRequest();
@@ -32,7 +34,8 @@ export default {
   },
   data () {
     return {
-      state: 'login'
+      state: 'login',
+      currentTest: 'holmsRage'
     }
   },
   methods: {
@@ -48,7 +51,12 @@ export default {
     },
     goToTests(){
       this.state = 'tests';
+    },
+    toTestsApp(status){
+      this.currentTest = status;
+      this.state = 'testsApp';
     }
+
   }
 }  
   

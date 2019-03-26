@@ -1,34 +1,35 @@
 <template>
-	<section class="grid-12">
-		<div class="flex-hcenter-wrap title">
-			<h1>Тесты</h1>
-		</div>
-		<div class="go-back" v-on:click="$emit('backToCab')">
-			<span>&larr;</span>&nbsp;назад
-		</div>
-		<div class="cont-left">
-			<p v-on:click="clickTest('holmsRage')">Тест Холмса-Раге</p>
-			<p v-on:click="$emit('toTestsApp', status = 'profButnTeachers')">Опросник на определение уровня психического выгорания  (MBI)</p>
-		</div>
-	</section>
+	<div>
+		<HolmsRage v-if="stateTest == 'holmsRage'"></HolmsRage>
+		<ProfBurnTeachers v-if="stateTest == 'profButnTeachers'"></ProfBurnTeachers>
+	</div>
 	
 
 </template>
 <script>
+	import HolmsRage from '../components/holms-rage.vue';
+	import ProfBurnTeachers from '../components/profburnteachers.vue';
 	export default{
+		props:['currentTest'],
+		methods:{
+			
+		},
+		components:{
+			'HolmsRage':HolmsRage,
+			'ProfBurnTeachers':ProfBurnTeachers
+		},
 		data(){
 			return{
-				
+				stateTest:this.currentTest
 			}
+			
+
 		},
 		methods:{
-			clickTest(status){
-				this.$emit('toTestsApp', status);
-			}
+			
 		}
-	}
 
-	
+	}
 </script>		
 <style lang="scss" scoped>
 	$font:verdana;
