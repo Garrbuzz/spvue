@@ -6,9 +6,12 @@
 		<div class="go-back" v-on:click="$emit('backToCab')">
 			<span>&larr;</span>&nbsp;назад
 		</div>
-		<div class="cont-left">
-			<p v-on:click="clickTest('holmsRage')">Тест Холмса-Раге</p>
-			<p v-on:click="$emit('toTestsApp', status = 'profButnTeachers')">Опросник на определение уровня психического выгорания  (MBI)</p>
+		<div class="cont flex-hcenter-wrap">
+			<div class="list-of-tests">
+				<p v-on:click="clickTest('holmsRage')">Тест Холмса-Раге</p>
+				<p v-on:click="$emit('toTestsApp', status = 'profButnTeachers')">Опросник на определение уровня психического выгорания  (MBI)</p>
+			</div>	
+			
 		</div>
 	</section>
 	
@@ -43,8 +46,8 @@
 	.title{
 		grid-column:1/13;
 	}
-	.cont-left{
-		grid-column:1/5;
+	.cont{
+		grid-column:1/13;
 		
 		p{
 			margin:0.5em 0 0.25em 4em;
@@ -80,5 +83,8 @@
 	.go-back:hover{
 		color: $colBlue;
 		cursor:pointer;
+	}
+	.list-of-tests{
+		margin: 2em 0;
 	}
 </style>
