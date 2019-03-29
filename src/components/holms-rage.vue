@@ -7,10 +7,20 @@
 		<div class="flex-hcenter-wrap cont">
 			<div class = "subtitle">
 				<p>Постарайтесь вспомнить все события, случившиеся с вами в течение последнего года и ответьте на предложенные вопросы</p>
+				<button v-on:click="runTest">Начать тест</button>
+			</div>
+			
+			
+			<div class="go-back" v-on:click="$emit('backToTests')">
+				<span>&larr;</span>&nbsp;назад
 			</div>
 			
 		</div>
-		
+		<div class = "test" id = "question">
+				<h4>{{qtitle}} {{n}}</h4>
+				<p>{{question}}</p>
+				
+		</div>
 		
 		
 	</section>
@@ -24,12 +34,7 @@
 	        xhr.open('post', window.location.origin + '/php/tests.php', true);
 	        xhr.onreadystatechange =  () => {
 	            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-	              	
-	              		
-	                	
 	                	this.holmse = JSON.parse(xhr.responseText);
-	                	this.t();
-	              			
 	            }
 	        } 
 	        xhr.send();
@@ -37,12 +42,22 @@
 		},
 			data(){
 				return{
-					holmse:{}
+					qtitle:'',
+					n:'',
+					holmse:{},
+					question:''
 				}
 			},
 			methods:{
 				t(){
 					console.log(this.holmse[22].question);
+				}, 
+				runTest(){
+					let answers = [];
+					let i = 1;
+					this.qtitle = 'Вопрос';
+					this.n = i;
+					this.question = this.holmse[i].question
 				}
 
 			}
@@ -88,5 +103,23 @@
 		p{
 			font-size: 1.25em;
 		}
+	}
+	.go-back{
+		position: absolute;
+		top:0.75em;
+		left:2em;
+		color: grey;
+		span{
+			font-size: 1.2em;
+		}
+	}
+	.go-back:hover{
+		cursor:pointer;
+	};
+	.test{
+		margin:2em 0;
+		grid-column:3/11;
+		background:#eee;
+		height: 10em;
 	}
 </style>

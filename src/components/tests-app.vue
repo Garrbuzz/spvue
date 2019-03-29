@@ -1,8 +1,9 @@
 <template>
 	<div>
-		<HolmsRage v-if="stateTest == 'holmsRage'"></HolmsRage>
-		<ProfBurnTeachers v-if="stateTest == 'profButnTeachers'"></ProfBurnTeachers>
+		<HolmsRage v-if="stateTest == 'holmsRage'" @backToTests = "backToTests"></HolmsRage>
+		<ProfBurnTeachers v-if="stateTest == 'profButnTeachers'" @backToTests = "backToTests"></ProfBurnTeachers>
 	</div>
+
 	
 
 </template>
@@ -26,6 +27,9 @@
 
 		},
 		methods:{
+			backToTests(){
+				this.$emit('tests');
+			}
 			
 		}
 

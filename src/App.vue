@@ -5,7 +5,7 @@
     <Cab v-else-if="state=='cabinet'" @onLogout = "logout" @tests = "goToTests"></Cab>
     <Reg v-else-if="state=='registration'" @onLogout = "logout"></Reg>
     <Tests v-else-if="state=='tests'" @backToCab="toCabinet" @toTestsApp = 'toTestsApp'> </Tests>
-    <TestsApp v-if ="state=='testsApp'" :currentTest="currentTest"></TestsApp>  
+    <TestsApp v-if ="state=='testsApp'" :currentTest="currentTest"  @tests = "goToTests"></TestsApp>  
     
   </div>
 </template>
