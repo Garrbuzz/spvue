@@ -19,6 +19,12 @@
 		<div class = "test" id = "question">
 				<h4>{{qtitle}} {{n}}</h4>
 				<p>{{question}}</p>
+				<div>
+					<ul>
+						<li v-for="answer in answers"><input type="radio" >{{answer}}</li>
+						
+					</ul>
+				</div>
 				
 		</div>
 		
@@ -42,10 +48,12 @@
 		},
 			data(){
 				return{
+					i:0,
 					qtitle:'',
 					n:'',
 					holmse:{},
-					question:''
+					question:'',
+					answers:['Не было', '1 раз','2 раза','3 раза','4 раза']
 				}
 			},
 			methods:{
@@ -53,7 +61,7 @@
 					console.log(this.holmse[22].question);
 				}, 
 				runTest(){
-					let answers = [];
+					
 					let i = 1;
 					this.qtitle = 'Вопрос';
 					this.n = i;
