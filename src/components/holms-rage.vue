@@ -60,13 +60,17 @@
 				t(){
 					console.log(this.holmse[22].question);
 				}, 
-				runTest(){
+				next(){
 					
 					let i = 1;
 					this.qtitle = 'Вопрос';
 					this.n = i;
 					this.question = this.holmse[i].question
+				},
+				prev(){
+					
 				}
+
 
 			}
 	}
