@@ -17,21 +17,8 @@
 			
 		</div>
 		<div class = "test" id = "question">
-				<h4>{{qtitle}} {{i}}</h4>
-				<p>{{question}}</p>
-				<div>
-					<ul>
-						<li v-if = "i!=0" v-for="answersVariant in answersVariants">
-							<input v-if="answersVariant!=at" type="radio" name = "rage-answers" v-bind:value="answersVariant" v-on:input="getAnswer">
-							<input  v-if="answersVariant==at" 	type="radio" name = "rage-answers" v-bind:value="answersVariant" checked>
-							{{answersVariant}} 
-
-						</li>
-						
-					</ul>
-					<button v-on:click="next">Следующий вопрос</button>
-					<button v-on:click="prev">Назад</button>
-				</div>
+				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion'></Question>
+				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
 		
@@ -53,15 +40,15 @@
 	        xhr.send();
 
 		},
+		
 			data(){
 				return{
-					i:0,
-					qtitle:'',
+					
+					state:'',
 					n:'',
 					holmse:{},
 					question:'',
-					answersVariants:['Не было', '1 раз','2 раза','3 раза','4 раза'],
-					at:'',
+					answer:'Не было',
 					answers:[]
 
 				}
@@ -71,48 +58,33 @@
 				start(){
 					this.i = 1;
 					this.qtitle = 'Вопрос';
-					this.question = this.holmse[this.i].question
-				},
-				next(){
+					this.answers[this.i] = this.answer;
+					this.question = this.holmse[this.i].question;
+					this.state='question';
 					
-					if (this.i < 42){
-						this.i += 1;
-						if (this.answers[this.i] == 'undefined'){
-							this.at='';
 
-						} else {
-							this.at = this.answers[this.i];
-						}
-						this.question = this.holmse[this.i].question
-						alert(this.at);
-					} else {
-						this.i = 1;
-					}
 				},
-				prev(){
-
-					if (this.i>1){
+				nextQuestion(answer){
+					if (this.i<42){
+						this.answers[this.i] = answer;
+						this.i++;
+						this.question = this.holmse[this.i].question;
+						this.answer = this.answers[this.i];
+						this.state='q';
 						
-						this.i += -1;
-						if (this.answers[this.i] == 'undefined'){
-							this.at='';
-						} else {
-							this.at = this.answers[this.i];
-						}
-						this.question = this.holmse[this.i].question
-					} else this.i = 42
+					}
 				},
-				getAnswer(){
-
-					
-					let answ = document.querySelectorAll('[name = "rage-answers"]');
-					for (let i =0; i<answ.length; i++){
-						if (answ[i].checked){
-							this.answers[this.i] = answ[i].value;
-						}
+				prevQuestion(answer){
+					if (this.i>1){
+						this.i--;
+						this.question = this.holmse[this.i].question;
+						this.answer = this.answers[this.i];
+						this.state='q';
 					}
 					
-					
+				},
+				ok(){
+					this.state='question';
 				}
 
 
