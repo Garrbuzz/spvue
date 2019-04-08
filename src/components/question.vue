@@ -10,14 +10,28 @@
 							{{answersVariant}} 
 					</li>
 				</ul>
-				<button v-on:click="next">Следующий вопрос</button>
-				<button v-on:click="prev">Назад</button>
+				<button v-on:click="next"  id="next">Следующий вопрос</button>
+				<button v-on:click="prev" id="prev">Назад</button>
 				</div>
 	</div>			
 </template>
 <script>
 	export default{
-		props:['question', 'numberOfQuestion', 'answer' ],
+		mounted(){
+
+			if(this.nextDisabled){
+				document.querySelector('#next').disabled = true;
+			} else {
+				document.querySelector('#next').disabled = false;
+			};
+			if (this.backDisabled){
+				document.querySelector('#prev').disabled = true;
+			} else {
+				document.querySelector('#prev').disabled = false;
+			}
+
+		},
+		props:['question', 'numberOfQuestion', 'answer', 'nextDisabled', 'backDisabled' ],
 		data(){
 			return{
 				answersVariants:['Не было', '1 раз','2 раза','3 раза','4 раза'],
@@ -31,10 +45,15 @@
 			prev(){
 				console.log('current answer: ' + this.answer);
 				this.$emit('prevQuestion', this.newAnswer);
-
 			},
 			getAnswer(){
 				let answ = document.querySelectorAll('[name = "rage-answers"]');
+				if (this.numberOfQuestion != 42){
+					document.querySelector('#next').disabled = false;
+				}
+				if (this.numberOfQuestion != 1){
+					document.querySelector('#prev').disabled = false;
+				}
 				for (let i = 0; i<answ.length; i++){
 					if (answ[i].checked){
 						this.newAnswer=answ[i].value;
@@ -48,6 +67,15 @@
 	}
 	
 </script>
-<sstyle lang="scss" >
+<style lang="scss">
+	ul{
+		display:flex;
+		justify-content: space-around;
+		list-style-type: none;
+		li {
+			display: inline-block;
+		}
+	}
 	
-</sstyle>
+	
+</style>

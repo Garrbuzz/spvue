@@ -7,7 +7,7 @@
 		<div class="flex-hcenter-wrap cont">
 			<div class = "subtitle">
 				<p>Постарайтесь вспомнить все события, случившиеся с вами в течение последнего года и ответьте на предложенные вопросы</p>
-				<button v-on:click="start">Начать тест</button>
+				<button v-on:click="start" id="start">Начать тест</button>
 			</div>
 			
 			
@@ -17,7 +17,7 @@
 			
 		</div>
 		<div class = "test" id = "question">
-				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion'></Question>
+				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion'></Question>
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
@@ -43,19 +43,23 @@
 		
 			data(){
 				return{
-					
 					state:'',
 					n:'',
 					holmse:{},
 					question:'',
-					answer:'Не было',
-					answers:[]
+					answer:'',
+					answers:[],
+					currentQuestion:1,
+					nextDisabled:true,
+					backDisabled:true
 
 				}
 			},
 			methods:{
 				 
 				start(){
+					let button = document.querySelector('#start');
+					button.classList.add('hide');
 					this.i = 1;
 					this.qtitle = 'Вопрос';
 					this.answers[this.i] = this.answer;
@@ -66,6 +70,14 @@
 				},
 				nextQuestion(answer){
 					if (this.i<42){
+						this.backDisabled = false;
+						if (this.i==this.currentQuestion){
+							this.currentQuestion++;
+							this.nextDisabled = true;
+
+						} else {
+							this.nextDisabled = false;
+						}
 						this.answers[this.i] = answer;
 						this.i++;
 						this.question = this.holmse[this.i].question;
@@ -76,11 +88,17 @@
 				},
 				prevQuestion(answer){
 					if (this.i>1){
+						this.answers[this.i] = answer;
 						this.i--;
 						this.question = this.holmse[this.i].question;
 						this.answer = this.answers[this.i];
+						if (this.i ===1){
+							this.backDisabled = true;
+						}
 						this.state='q';
-					}
+						this.nextDisabled = false;
+						
+					} 
 					
 				},
 				ok(){
@@ -122,7 +140,10 @@
 		justify-content: center;
 		flex-wrap: wrap;
 	}
-// end layout		
+// end layout
+.hide{
+	display:none;
+}		
 	h1{
 		color:$colBlue;
 	}
