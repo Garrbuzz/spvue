@@ -17,12 +17,12 @@
 			
 		</div>
 		<div class = "test" id = "question">
-				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion'></Question>
+				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' :numberOfQuestions='numberOfQuestions' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion' @endOfTest='endOfTest'></Question>
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
 		
-		
+		<button id="save" class="hide">Сохранить результат</button>
 	</section>
 	
 </template>	
@@ -51,7 +51,8 @@
 					answers:[],
 					currentQuestion:1,
 					nextDisabled:true,
-					backDisabled:true
+					backDisabled:true,
+					numberOfQuestions:5
 
 				}
 			},
@@ -69,21 +70,29 @@
 
 				},
 				nextQuestion(answer){
-					if (this.i<42){
+					console.log('i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
+					if (this.i<this.numberOfQuestions){
 						this.backDisabled = false;
-						if (this.i==this.currentQuestion){
+						if (this.i<this.currentQuestion){
+							this.nextDisabled = false;
+						}
+						if (this.i===this.currentQuestion){
 							this.currentQuestion++;
-							this.nextDisabled = true;
-
+							this.backDisabled = true;
 						} else {
 							this.nextDisabled = false;
 						}
+						if (this.i === this.numberOfQuestions-1){
+								this.nextDisabled = true;
+							}
 						this.answers[this.i] = answer;
 						this.i++;
 						this.question = this.holmse[this.i].question;
 						this.answer = this.answers[this.i];
 						this.state='q';
 						
+					} else{
+						this.nextDisabled = true;
 					}
 				},
 				prevQuestion(answer){
@@ -94,18 +103,20 @@
 						this.answer = this.answers[this.i];
 						if (this.i ===1){
 							this.backDisabled = true;
+						} else {
+							this.backDisabled = false;
 						}
-						this.state='q';
 						this.nextDisabled = false;
-						
+						this.state='q';
 					} 
-					
 				},
 				ok(){
 					this.state='question';
+				},
+				endOfTest(){
+					let button = document.querySelector('#save');
+					button.classList.remove('hide');
 				}
-
-
 			}
 	}
 </script>		

@@ -31,7 +31,7 @@
 			}
 
 		},
-		props:['question', 'numberOfQuestion', 'answer', 'nextDisabled', 'backDisabled' ],
+		props:['question', 'numberOfQuestion', 'answer', 'nextDisabled', 'backDisabled', 'numberOfQuestions' ],
 		data(){
 			return{
 				answersVariants:['Не было', '1 раз','2 раза','3 раза','4 раза'],
@@ -43,22 +43,25 @@
 				this.$emit('nextQuestion', this.newAnswer);
 			},
 			prev(){
-				console.log('current answer: ' + this.answer);
+			
 				this.$emit('prevQuestion', this.newAnswer);
 			},
 			getAnswer(){
-				let answ = document.querySelectorAll('[name = "rage-answers"]');
-				if (this.numberOfQuestion != 42){
+				if (this.numberOfQuestion != this.numberOfQuestions){
 					document.querySelector('#next').disabled = false;
+				} else{
+					document.querySelector('#next').disabled = true;
+					this.$emit('endOfTest');
 				}
 				if (this.numberOfQuestion != 1){
 					document.querySelector('#prev').disabled = false;
 				}
+
+				let answ = document.querySelectorAll('[name = "rage-answers"]');
 				for (let i = 0; i<answ.length; i++){
 					if (answ[i].checked){
 						this.newAnswer=answ[i].value;
-						console.log('newAnswer' 
-							+ this.newAnswer);
+						
 					}
 				}
 				
