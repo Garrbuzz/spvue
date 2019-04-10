@@ -22,7 +22,7 @@
 				
 		</div>
 		
-		<button id="save" class="hide">Сохранить результат</button>
+		<button id="save" class="hide" v-on:click="result">Показать результат</button>
 	</section>
 	
 </template>	
@@ -52,7 +52,7 @@
 					currentQuestion:1,
 					nextDisabled:true,
 					backDisabled:true,
-					numberOfQuestions:5
+					numberOfQuestions:11
 
 				}
 			},
@@ -116,6 +116,9 @@
 				endOfTest(){
 					let button = document.querySelector('#save');
 					button.classList.remove('hide');
+				},
+				result(){
+					console.log(this.holmse[1].weight);
 				}
 			}
 	}
