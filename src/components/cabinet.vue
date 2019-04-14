@@ -58,6 +58,7 @@ export default{
 	},
 	methods:{
 	    logout(){
+	    	alert('logout');
 	        let xhr = new XMLHttpRequest();
 	      	let body = new FormData();
 	      	body.append("type", encodeURIComponent('logout')); 

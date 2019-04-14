@@ -2,23 +2,30 @@
 	<div>
 		<h4>Вопрос {{numberOfQuestion}}</h4>
 			<p>{{question}}</p>
-			<div >
-				<ul id = "listOfQuestions">
+			<button @click="getAnswer(answersVariants[0], 0)" id="a0">{{answersVariants[0]}}</button>
+			<button @click="getAnswer(answersVariants[1], 1)" id="a1">{{answersVariants[1]}}</button>
+			<button @click="getAnswer(answersVariants[2], 2)" id="a2">{{answersVariants[2]}}</button>
+			<button @click="getAnswer(answersVariants[3], 3)" id="a3">{{answersVariants[3]}}</button>
+			<button @click="getAnswer(answersVariants[4], 4)" id="a4">{{answersVariants[4]}}</button>
+			
+				<!-- <ul id = "listOfQuestions">
 					<li  v-for="answersVariant in answersVariants">
 						<input v-if="answersVariant!=answer" type="radio" name = "rage-answers" v-bind:value="answersVariant" v-on:input="getAnswer">
 						<input  v-if="answersVariant==answer" 	type="radio" name = "rage-answers" v-bind:value="answersVariant"  v-on:input="getAnswer" checked>
 							{{answersVariant}} 
 					</li>
-				</ul>
+				</ul> -->
+			<div>
 				<button v-on:click="next"  id="next">Следующий вопрос</button>
 				<button v-on:click="prev" id="prev">Назад</button>
-				</div>
+			</div>
+				
 	</div>			
 </template>
 <script>
 	export default{
 		mounted(){
-
+			
 			if(this.nextDisabled){
 				document.querySelector('#next').disabled = true;
 			} else {
@@ -46,7 +53,8 @@
 			
 				this.$emit('prevQuestion', this.newAnswer);
 			},
-			getAnswer(){
+			getAnswer(newAnswer, n){
+				
 				if (this.numberOfQuestion != this.numberOfQuestions){
 					document.querySelector('#next').disabled = false;
 				} else{
@@ -56,29 +64,30 @@
 				if (this.numberOfQuestion != 1){
 					document.querySelector('#prev').disabled = false;
 				}
-
-				let answ = document.querySelectorAll('[name = "rage-answers"]');
-				for (let i = 0; i<answ.length; i++){
-					if (answ[i].checked){
-						this.newAnswer=answ[i].value;
-						
+				let id = '#a' + n;
+				let but = document.querySelector(id);
+				but.classList.add('active');
+				for (let i = 0; i<5; i++){
+					if (i != n){
+						let id = '#a' + i;
+						let but = document.querySelector(id);
+						but.classList.remove('active');
 					}
+					
+					
+					
+					this.newAnswer=newAnswer;
 				}
-				
 			}			
 		}
 	}
 	
 </script>
-<style lang="scss">
-	ul{
-		display:flex;
-		justify-content: space-around;
-		list-style-type: none;
-		li {
-			display: inline-block;
-		}
-	}
+<style lang="scss" scoped>
+.active{
+	background:green;
+}
+
 	
 	
 </style>

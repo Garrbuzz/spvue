@@ -70,7 +70,7 @@
 
 				},
 				nextQuestion(answer){
-					console.log('i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
+					console.log('NEXT   i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
 					if (this.i<this.numberOfQuestions){
 						this.backDisabled = false;
 						if (this.i<this.currentQuestion){
@@ -79,6 +79,7 @@
 						if (this.i===this.currentQuestion){
 							this.currentQuestion++;
 							this.backDisabled = true;
+							this.nextDisabled = true;
 						} else {
 							this.nextDisabled = false;
 						}
@@ -96,6 +97,7 @@
 					}
 				},
 				prevQuestion(answer){
+					console.log('PREV   i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
 					if (this.i>1){
 						this.answers[this.i] = answer;
 						this.i--;
@@ -123,7 +125,7 @@
 			}
 	}
 </script>		
-<style lang="scss" scoped="">
+<style lang="scss" scoped>
 	$font:verdana;
 	$colBlue:#0095a6;
 	$colBlueBtnHover:#22a7c8;
