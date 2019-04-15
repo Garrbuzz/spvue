@@ -17,7 +17,7 @@
 			
 		</div>
 		<div class = "test" id = "question">
-				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' :numberOfQuestions='numberOfQuestions' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion' @endOfTest='endOfTest'></Question>
+				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' :numberOfQuestions='numberOfQuestions' @nextQuestion = 'nextQuestion' @prevQuestion='prevQuestion' @endOfTest='endOfTest' @getAnswer='getAnswer'></Question>
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
@@ -52,7 +52,8 @@
 					currentQuestion:1,
 					nextDisabled:true,
 					backDisabled:true,
-					numberOfQuestions:11
+					numberOfQuestions:3,
+					answersVariants:['Не было','1 раз','2 раза','3 раза','4 раза']
 
 				}
 			},
@@ -69,8 +70,11 @@
 					
 
 				},
+				getAnswer(answer){
+					this.answers[this.i] = answer;
+					this.holmse[this.i].number=this.answersVariants.indexOf(answer);
+				},
 				nextQuestion(answer){
-					console.log('NEXT   i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
 					if (this.i<this.numberOfQuestions){
 						this.backDisabled = false;
 						if (this.i<this.currentQuestion){
@@ -86,7 +90,7 @@
 						if (this.i === this.numberOfQuestions-1){
 								this.nextDisabled = true;
 							}
-						this.answers[this.i] = answer;
+						
 						this.i++;
 						this.question = this.holmse[this.i].question;
 						this.answer = this.answers[this.i];
@@ -97,17 +101,18 @@
 					}
 				},
 				prevQuestion(answer){
-					console.log('PREV   i= ' + this.i + ' this.numberOfQuestions = ' + this.numberOfQuestions + '  this.currentQuestion=  ' + this.currentQuestion);
+				
 					if (this.i>1){
-						this.answers[this.i] = answer;
+						
 						this.i--;
-						this.question = this.holmse[this.i].question;
-						this.answer = this.answers[this.i];
+						
 						if (this.i ===1){
 							this.backDisabled = true;
 						} else {
 							this.backDisabled = false;
 						}
+						this.question = this.holmse[this.i].question;
+						this.answer = this.answers[this.i];
 						this.nextDisabled = false;
 						this.state='q';
 					} 
@@ -120,7 +125,14 @@
 					button.classList.remove('hide');
 				},
 				result(){
-					console.log(this.holmse[1].weight);
+					let res = 0;
+					for (let i = 1; i<this.numberOfQuestions+1; i++){
+						res = res + this.holmse[i].weight*this.holmse[i].number;
+						console.log('i= ' + i + 'Проміжний результат: ' + res);
+						
+					}
+					console.log('Результат тесту: ' + res);
+					
 				}
 			}
 	}

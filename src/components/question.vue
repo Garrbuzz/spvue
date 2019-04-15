@@ -2,19 +2,13 @@
 	<div>
 		<h4>Вопрос {{numberOfQuestion}}</h4>
 			<p>{{question}}</p>
-			<button @click="getAnswer(answersVariants[0], 0)" id="a0">{{answersVariants[0]}}</button>
-			<button @click="getAnswer(answersVariants[1], 1)" id="a1">{{answersVariants[1]}}</button>
-			<button @click="getAnswer(answersVariants[2], 2)" id="a2">{{answersVariants[2]}}</button>
-			<button @click="getAnswer(answersVariants[3], 3)" id="a3">{{answersVariants[3]}}</button>
-			<button @click="getAnswer(answersVariants[4], 4)" id="a4">{{answersVariants[4]}}</button>
-			
-				<!-- <ul id = "listOfQuestions">
-					<li  v-for="answersVariant in answersVariants">
-						<input v-if="answersVariant!=answer" type="radio" name = "rage-answers" v-bind:value="answersVariant" v-on:input="getAnswer">
-						<input  v-if="answersVariant==answer" 	type="radio" name = "rage-answers" v-bind:value="answersVariant"  v-on:input="getAnswer" checked>
-							{{answersVariant}} 
-					</li>
-				</ul> -->
+
+				<span v-for="(answersVariant, index) in answersVariants">
+					<button  v-if="answersVariant!=answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)">{{answersVariant}}</button>
+					<button  v-if="answersVariant==answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)" class="active">{{answersVariant}}</button>
+				</span>
+
+				
 			<div>
 				<button v-on:click="next"  id="next">Следующий вопрос</button>
 				<button v-on:click="prev" id="prev">Назад</button>
@@ -38,20 +32,21 @@
 			}
 
 		},
-		props:['question', 'numberOfQuestion', 'answer', 'nextDisabled', 'backDisabled', 'numberOfQuestions' ],
+		props:['question', 'numberOfQuestion', 'answer', 'nextDisabled', 'backDisabled', 'numberOfQuestions'],
 		data(){
 			return{
-				answersVariants:['Не было', '1 раз','2 раза','3 раза','4 раза'],
-				newAnswer:this.answer		
+				answersVariants:['Не было','1 раз','2 раза','3 раза','4 раза'],
+				newAnswer:this.answer	
 			}
 		},
 		methods:{
 			next(){
-				this.$emit('nextQuestion', this.newAnswer);
+				
+				this.$emit('nextQuestion');
 			},
 			prev(){
-			
-				this.$emit('prevQuestion', this.newAnswer);
+				
+				this.$emit('prevQuestion');
 			},
 			getAnswer(newAnswer, n){
 				
@@ -73,10 +68,8 @@
 						let but = document.querySelector(id);
 						but.classList.remove('active');
 					}
-					
-					
-					
 					this.newAnswer=newAnswer;
+					this.$emit('getAnswer', this.newAnswer);
 				}
 			}			
 		}
