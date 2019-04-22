@@ -1,17 +1,21 @@
 <template>
-	<div>
-		<h4>Вопрос {{numberOfQuestion}}</h4>
-			<p>{{question}}</p>
-
+	<div class="question">
+		<div class="title">
+			<h4>Вопрос {{numberOfQuestion}}</h4>
+		</div>
+			<div class="title">
+				<p>{{question}}</p>
+			</div>
+			<div class="ans">
 				<span v-for="(answersVariant, index) in answersVariants">
 					<button  v-if="answersVariant!=answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)">{{answersVariant}}</button>
 					<button  v-if="answersVariant==answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)" class="active">{{answersVariant}}</button>
 				</span>
-
+			</div>
 				
 			<div>
-				<button v-on:click="next"  id="next">Следующий вопрос</button>
-				<button v-on:click="prev" id="prev">Назад</button>
+				<button v-on:click="next"  id="next" class="butNext">Следующий вопрос</button>
+				<button v-on:click="prev" id="prev" class="butPrev">Назад</button>
 			</div>
 				
 	</div>			
@@ -77,8 +81,25 @@
 	
 </script>
 <style lang="scss" scoped>
+.question{
+	grid-column: 0/13;
+
+}
 .active{
 	background:green;
+}
+.title{
+	display: flex;
+	justify-content: center;
+}
+.ans{
+	display: flex;
+	justify-content: space-around;
+}
+.butNext{
+	position: absolute;
+	bottom: 0.5em;
+	right: 2em;
 }
 
 	

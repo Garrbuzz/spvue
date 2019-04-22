@@ -101,11 +101,8 @@
 					}
 				},
 				prevQuestion(answer){
-				
 					if (this.i>1){
-						
 						this.i--;
-						
 						if (this.i ===1){
 							this.backDisabled = true;
 						} else {
@@ -129,10 +126,8 @@
 					for (let i = 1; i<this.numberOfQuestions+1; i++){
 						res = res + this.holmse[i].weight*this.holmse[i].number;
 						console.log('i= ' + i + 'Проміжний результат: ' + res);
-						
 					}
 					console.log('Результат тесту: ' + res);
-					
 				}
 			}
 	}
