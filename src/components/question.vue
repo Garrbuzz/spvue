@@ -8,15 +8,17 @@
 			</div>
 			<div class="ans">
 				<span v-for="(answersVariant, index) in answersVariants">
-					<button  v-if="answersVariant!=answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)">{{answersVariant}}</button>
-					<button  v-if="answersVariant==answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)" class="active">{{answersVariant}}</button>
+					<button class="but-answ" v-if="answersVariant!=answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)">{{answersVariant}}</button>
+					<button  v-if="answersVariant==answer"  :id="'a' + index" @click="getAnswer(answersVariant, index)" class="but-answ active">{{answersVariant}}</button>
 				</span>
+				
 			</div>
 				
-			<div>
-				<button v-on:click="next"  id="next" class="butNext">Следующий вопрос</button>
-				<button v-on:click="prev" id="prev" class="butPrev">Назад</button>
-			</div>
+		<div>
+			<button v-on:click="next"  id="next" class="butNext">Следующий вопрос</button>
+			<button v-on:click="prev" id="prev" class="butPrev">Назад</button>		
+		</div>	
+		
 				
 	</div>			
 </template>
@@ -47,9 +49,9 @@
 			next(){
 				
 				this.$emit('nextQuestion');
+
 			},
 			prev(){
-				
 				this.$emit('prevQuestion');
 			},
 			getAnswer(newAnswer, n){
@@ -66,6 +68,7 @@
 				let id = '#a' + n;
 				let but = document.querySelector(id);
 				but.classList.add('active');
+				console.log(but);
 				for (let i = 0; i<5; i++){
 					if (i != n){
 						let id = '#a' + i;
@@ -82,15 +85,16 @@
 </script>
 <style lang="scss" scoped>
 .question{
+	position: relative;
 	grid-column: 0/13;
-
 }
 .active{
-	background:green;
+	color:orange;
 }
 .title{
 	display: flex;
 	justify-content: center;
+	border-radius: 1em;
 }
 .ans{
 	display: flex;
@@ -98,9 +102,26 @@
 }
 .butNext{
 	position: absolute;
-	bottom: 0.5em;
+	bottom: -4em;
 	right: 2em;
 }
+.butPrev{
+	position: absolute;
+	bottom: -4em;
+	left: 2em;
+}
+.but-answ{
+	padding: 0.25em 1em;
+	background:#fff;
+	border-radius: 1em;
+	border: 1px solid #4CAF50;
+	outline:none;
+	transition: border-color 0.3s linear;
+}
+.but-answ:hover{
+	cursor: pointer;
+	border-color:orange;
+};
 
 	
 	

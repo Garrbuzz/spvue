@@ -21,7 +21,9 @@
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
-		
+		<progress id="progress" value="0" max="3">
+
+		</progress>
 		<button id="save" class="hide" v-on:click="result">Показать результат</button>
 	</section>
 	
@@ -58,7 +60,6 @@
 				}
 			},
 			methods:{
-				 
 				start(){
 					let button = document.querySelector('#start');
 					button.classList.add('hide');
@@ -90,7 +91,7 @@
 						if (this.i === this.numberOfQuestions-1){
 								this.nextDisabled = true;
 							}
-						
+						this.changeProgress(this.currentQuestion);
 						this.i++;
 						this.question = this.holmse[this.i].question;
 						this.answer = this.answers[this.i];
@@ -103,6 +104,7 @@
 				prevQuestion(answer){
 					if (this.i>1){
 						this.i--;
+						this.changeProgress(this.i-1);
 						if (this.i ===1){
 							this.backDisabled = true;
 						} else {
@@ -114,6 +116,9 @@
 						this.state='q';
 					} 
 				},
+				changeProgress(prog){
+					document.querySelector('#progress').value = prog;
+				},
 				ok(){
 					this.state='question';
 				},
@@ -122,6 +127,7 @@
 					button.classList.remove('hide');
 				},
 				result(){
+					this.changeProgress(this.i);
 					let res = 0;
 					for (let i = 1; i<this.numberOfQuestions+1; i++){
 						res = res + this.holmse[i].weight*this.holmse[i].number;
