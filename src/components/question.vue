@@ -25,7 +25,6 @@
 <script>
 	export default{
 		mounted(){
-			
 			if(this.nextDisabled){
 				document.querySelector('#next').disabled = true;
 			} else {
@@ -75,9 +74,10 @@
 						let but = document.querySelector(id);
 						but.classList.remove('active');
 					}
-					this.newAnswer=newAnswer;
-					this.$emit('getAnswer', this.newAnswer);
+					
 				}
+				this.newAnswer=newAnswer;
+				this.$emit('getAnswer', this.newAnswer);
 			}			
 		}
 	}
