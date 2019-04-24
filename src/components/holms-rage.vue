@@ -89,6 +89,7 @@
 							this.nextDisabled = false;
 						}
 						if (this.i===this.currentQuestion){
+							this.changeProgress(this.currentQuestion)
 							this.currentQuestion++;
 							this.backDisabled = true;
 							this.nextDisabled = true;
@@ -99,7 +100,7 @@
 								this.nextDisabled = true;
 							}
 						console.log(this.currentQuestion);
-						this.changeProgress(this.currentQuestion - 1);
+						;
 						this.i++;
 						this.question = this.holmse[this.i].question;
 						this.answer = this.answers[this.i];
@@ -133,13 +134,10 @@
 				},
 				endOfTest(){
 					this.changeProgress(this.currentQuestion);
-					// let button = document.querySelector('#save');
 					this.result();
-					
-
 				},
 				result(){
-					this.changeProgress(this.i);
+					
 					let res = 0;
 					for (let i = 1; i<this.numberOfQuestions+1; i++){
 						res = res + this.holmse[i].weight*this.holmse[i].number;
