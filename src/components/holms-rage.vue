@@ -16,18 +16,21 @@
 			</div>
 			
 		</div>
-		<div class = "test" id = "question">
+		<div class = "test testsArea" id = "question">
 				<Question v-if="state == 'question'" :question = 'question' :numberOfQuestion = 'i' :answer='answer' :nextDisabled='nextDisabled' :backDisabled='backDisabled' :numberOfQuestions='numberOfQuestions' @nextQuestion='nextQuestion' @prevQuestion='prevQuestion' @endOfTest='endOfTest' @getAnswer='getAnswer'></Question>
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
-		<progress id="progress" value="0" max="3">
-
-		</progress>
-		<div id = "res" class="res">
-			{{resTest}}
+		<div class="progress flex-hcenter-wrap cont">
+			<progress id="progress" value="0" max="3">
+					
+			</progress>
+			<div id = "res" class="res">
+				{{resTest}}
+			</div>
 		</div>
-		<button id="save" class="hide" v-on:click="result">Показать результат</button>
+		
+		
 	</section>
 	
 </template>	
@@ -160,7 +163,9 @@
 	.grid-12{
 		display:grid;
 		grid-template-columns:  repeat(12, 1fr);
+
 	}
+
 	.title{
 		grid-column:1/13;
 	}
@@ -183,9 +188,9 @@
 		flex-wrap: wrap;
 	}
 // end layout
-.hide{
-	display:none;
-}		
+	.hide{
+		display:none;
+	}		
 	h1{
 		color:$colBlue;
 	}
@@ -211,6 +216,33 @@
 		margin:2em 0;
 		grid-column:3/11;
 		background:#eee;
-		height: 10em;
+		// height: 10em;
 	}
+
+
+progress {
+  width: 100%;
+    height: 80px; 
+    background: grey; 
+  
+}
+ 
+progress::-webkit-progress-bar {
+  background: grey;
+  height: 80px;
+}
+ 
+progress::-webkit-progress-value {
+  background: red;
+  color:yellow;
+  height: 80px;
+}
+
+ 
+progress::-moz-progress-bar {
+  background: red;
+  color:yellow;
+}
+
+
 </style>

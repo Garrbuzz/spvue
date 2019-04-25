@@ -87,6 +87,7 @@
 .question{
 	position: relative;
 	grid-column: 0/13;
+	padding:5em;
 }
 .active{
 	color:orange;
