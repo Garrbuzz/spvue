@@ -79,7 +79,11 @@
 				getAnswer(answer){
 					this.answers[this.i] = answer;
 					this.holmse[this.i].number=this.answersVariants.indexOf(answer);
-					this.nextQuestion(answer);
+					if (this.currentQuestion === this.numberOfQuestions){
+						this.result();
+					} else {
+						this.nextQuestion(answer);
+					}
 
 				},
 				nextQuestion(answer){
@@ -107,9 +111,7 @@
 						this.state='q';
 						
 					} else{
-
 						this.nextDisabled = true;
-
 					}
 				},
 				prevQuestion(answer){

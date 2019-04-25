@@ -15,8 +15,8 @@
 			</div>
 				
 		<div>
-			<button v-on:click="next"  id="next" class="butNext">Следующий вопрос</button>
-			<button v-on:click="prev" id="prev" class="butPrev">Назад</button>		
+			<button v-on:click="next"  id="next" class="butNext"> Следующий вопрос &rarr;</button>
+			<button v-on:click="prev" id="prev" class="butPrev">&larr; Предыдущий вопрос</button>		
 		</div>	
 		
 				
@@ -67,7 +67,7 @@
 				let id = '#a' + n;
 				let but = document.querySelector(id);
 				but.classList.add('active');
-				console.log(but);
+				
 				for (let i = 0; i<5; i++){
 					if (i != n){
 						let id = '#a' + i;
@@ -100,14 +100,24 @@
 	display: flex;
 	justify-content: space-around;
 }
-.butNext{
+.butNext, .butPrev{
+	background: #eee;
+	color:#0095a6;
+	border: none;
+	font-size: 0.8em;
 	position: absolute;
 	bottom: -4em;
+	
+}
+.butNext:hover, .butPrev:hover{
+	color:#22a7c8;
+	cursor: pointer;
+}
+
+.butNext{
 	right: 2em;
 }
 .butPrev{
-	position: absolute;
-	bottom: -4em;
 	left: 2em;
 }
 .but-answ{
@@ -122,6 +132,7 @@
 	cursor: pointer;
 	border-color:orange;
 };
+
 
 	
 	
