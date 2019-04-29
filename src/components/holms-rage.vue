@@ -25,9 +25,15 @@
 			<progress id="progress" value="0" max="3">
 					
 			</progress>
-			<div id = "res" class="res">
-				{{resTest}}
-			</div>
+			
+		</div>
+		<div class="res">
+			<p>Результат {{resTest}}</p>	
+			 	
+		</div>
+		<div class="res hide" id = "save">
+			<button id="ssaveResult" v-on:click = "saveResult">Сохранить результат</button>	
+			 	
 		</div>
 		
 		
@@ -83,8 +89,11 @@
 					this.answers[this.i] = answer;
 					this.holmse[this.i].number=this.answersVariants.indexOf(answer);
 					if (this.currentQuestion === this.numberOfQuestions){
+						document.querySelector('#save').classList.remove('hide');
 						this.result();
+
 					} else {
+						this.result();
 						this.nextQuestion(answer);
 					}
 
@@ -103,8 +112,10 @@
 						} else {
 							this.nextDisabled = false;
 						}
-						if (this.i === this.numberOfQuestions-1){
+						if (this.i === this.numberOfQuestions - 1){
 								this.nextDisabled = true;
+								
+								
 							}
 						console.log(this.currentQuestion);
 						;
@@ -150,8 +161,24 @@
 					}
 					this.resTest = res;
 					console.log('Результат тесту: ' + res);
-				}
-			}
+				},
+				saveResult(){
+					
+					var xhr = new XMLHttpRequest();
+			      	let body = new FormData();
+			      	body.append("testRes", this.resTest); 
+			      	  xhr.withCredentials = true; 
+			          xhr.open('post', window.location.origin + '/php/saveResult.php', false);
+			          xhr.send(body);
+			          if (xhr.status != 200) {
+			          } else {
+			          		let res = JSON.parse(xhr.responseText);
+			          		console.log(res);
+			            	
+			            	console.log('Результат успешно сохранен'  + userInfo['login']);
+			      	}
+							}
+						}
 	}
 </script>		
 <style lang="scss" scoped>
@@ -170,7 +197,7 @@
 		grid-column:1/13;
 	}
 
-	.cont{
+	.cont, .res{
 		grid-column:4/10;
 		
 		h2{
@@ -178,6 +205,10 @@
 			font-size: 1.75em;
 		}
 		
+	}
+	.res{
+		display:flex;
+		justify-content: center;
 	}
 	.cont-right{
 		grid-column:5/13;

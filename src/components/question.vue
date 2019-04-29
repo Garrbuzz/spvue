@@ -107,7 +107,7 @@
 	border: none;
 	font-size: 0.8em;
 	position: absolute;
-	bottom: -4em;
+	bottom: 2em;
 	
 }
 .butNext:hover, .butPrev:hover{
@@ -128,6 +128,7 @@
 	border: 1px solid #4CAF50;
 	outline:none;
 	transition: border-color 0.3s linear;
+	margin:0 0.2em;
 }
 .but-answ:hover{
 	cursor: pointer;
