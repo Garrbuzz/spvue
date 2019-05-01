@@ -166,16 +166,17 @@
 					
 					var xhr = new XMLHttpRequest();
 			      	let body = new FormData();
+			      	body.append("testName", 'holmsRage'); 
 			      	body.append("testRes", this.resTest); 
-			      	  xhr.withCredentials = true; 
-			          xhr.open('post', window.location.origin + '/php/saveResult.php', false);
-			          xhr.send(body);
-			          if (xhr.status != 200) {
-			          } else {
-			          		let res = JSON.parse(xhr.responseText);
-			          		console.log(res);
+			      	xhr.withCredentials = true; 
+			        xhr.open('post', window.location.origin + '/php/saveResult.php', false);
+			        xhr.send(body);
+			        if (xhr.status != 200) {
+			        } else {
+			          	let res = JSON.parse(xhr.responseText);
+			          	console.log(res);
 			            	
-			            	console.log('Результат успешно сохранен'  + userInfo['login']);
+			            console.log('Результат успешно сохранен'  + res);
 			      	}
 							}
 						}
