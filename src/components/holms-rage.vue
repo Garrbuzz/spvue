@@ -251,7 +251,9 @@
 		// height: 10em;
 	}
 
-
+.progress{
+	height: 80px;
+}
 progress {
   width: 100%;
     height: 80px; 
@@ -265,7 +267,7 @@ progress::-webkit-progress-bar {
 }
  
 progress::-webkit-progress-value {
-  background: red;
+  background: $colBlue;
   color:yellow;
   height: 80px;
 }
