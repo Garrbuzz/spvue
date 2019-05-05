@@ -7,13 +7,14 @@
 		<div class="flex-hcenter-wrap cont">
 			<div class = "subtitle">
 				<p>Постарайтесь вспомнить все события, случившиеся с вами в течение последнего года и ответьте на предложенные вопросы</p>
-				<button v-on:click="start" id="start">Начать тест</button>
+				<div class="flex-hcenter-wrap">
+					<button class="beginTest" v-on:click="start" id="start">Начать тест</button>
+				</div>
+				
 			</div>
 			
 			
-			<div class="go-back" v-on:click="$emit('backToTests')">
-				<span>&larr;</span>&nbsp;назад
-			</div>
+
 			
 		</div>
 		<div class = "test testsArea" id = "question">
@@ -21,18 +22,18 @@
 				<Q v-if="state == 'q'" @ok = 'ok'></Q>	
 				
 		</div>
-		<div class="progress flex-hcenter-wrap cont">
-			<progress id="progress" value="0" max="3">
+		<div class="progress flex-hcenter-wrap cont hide">
+			<progress id="progress" value="0" max="43">
 					
 			</progress>
 			
 		</div>
-		<div class="res">
-			<p>Результат {{resTest}}</p>	
+		<div class="res hide" id = "divRes">
+			<p>Результат:  {{resTest}}</p>	
 			 	
 		</div>
 		<div class="res hide" id = "save">
-			<button id="ssaveResult" v-on:click = "saveResult">Сохранить результат</button>	
+			<button id="saveResult" class="beginTest" v-on:click = "saveResult">Сохранить результат</button>	
 			 	
 		</div>
 		
@@ -69,7 +70,7 @@
 					currentQuestion:1,
 					nextDisabled:true,
 					backDisabled:true,
-					numberOfQuestions:3,
+					numberOfQuestions:43,
 					answersVariants:['Не было','1 раз','2 раза','3 раза','4 раза'],
 					resTest:0
 
@@ -86,10 +87,13 @@
 					this.state='question';
 				},
 				getAnswer(answer){
+					document.querySelector('.progress').classList.remove('hide');
+					document.querySelector('#divRes').classList.remove('hide');
 					this.answers[this.i] = answer;
 					this.holmse[this.i].number=this.answersVariants.indexOf(answer);
 					if (this.currentQuestion === this.numberOfQuestions){
 						document.querySelector('#save').classList.remove('hide');
+
 						this.result();
 
 					} else {
@@ -169,14 +173,15 @@
 			      	body.append("testName", 'holmsRage'); 
 			      	body.append("testRes", this.resTest); 
 			      	xhr.withCredentials = true; 
-			        xhr.open('post', window.location.origin + '/php/saveResult.php', false);
+			        xhr.open('post', window.location.origin + '/php/saveresult.php', false);
 			        xhr.send(body);
 			        if (xhr.status != 200) {
 			        } else {
 			          	let res = JSON.parse(xhr.responseText);
 			          	console.log(res);
 			            	
-			            console.log('Результат успешно сохранен'  + res);
+			            alert('Результ теста : ' + this.resTest + '.  Результ успешно сохранен');
+			            this.$emit('backToTests');
 			      	}
 							}
 						}
@@ -199,7 +204,7 @@
 	}
 
 	.cont, .res{
-		grid-column:4/10;
+		grid-column:1/13;
 		
 		h2{
 			color:#555;
@@ -220,6 +225,7 @@
 		flex-wrap: wrap;
 	}
 // end layout
+
 	.hide{
 		display:none;
 	}		
@@ -252,31 +258,53 @@
 	}
 
 .progress{
-	height: 80px;
+	height: 3em;
 }
 progress {
   width: 100%;
-    height: 80px; 
-    background: grey; 
+    height: 3em; 
+    background: #bbb; 
   
 }
  
 progress::-webkit-progress-bar {
-  background: grey;
+  background: #bbb;
   height: 80px;
 }
  
 progress::-webkit-progress-value {
   background: $colBlue;
   color:yellow;
-  height: 80px;
+  height: 3em;
 }
 
  
 progress::-moz-progress-bar {
-  background: red;
-  color:yellow;
+  background: #bbb;
+ 
 }
-
+.beginTest{
+	border-radius: 1em;
+	background: $colBlue;
+	color:#fff;
+	font-size: 1.5em;
+	padding: 0.25em 2em;
+	border:none;
+	box-shadow: none;
+	transition: color 0.3s linear, background 0.3s linear;
+}
+.beginTest:hover{
+	cursor:pointer;
+	background: #7D9C3E;
+	color: yellow;	
+	
+}
+#divRes{
+	p{
+		color:$colBlue;
+		font-size: 1.5em;
+		margin:1em 0;
+	}
+}
 
 </style>

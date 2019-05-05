@@ -84,14 +84,14 @@
 
 	
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	$font:verdana;
 	$colBlue:#0095a6;
 	$colBlueBtnHover:#22a7c8;
 	$colP1:#444;
 		.login{
 		margin: 1em 0;
-		grid-column: 4/10;
+		grid-column: 1/13;
 		font-family: $font;
 		fieldset{
 			padding: 1em 5em 3em;

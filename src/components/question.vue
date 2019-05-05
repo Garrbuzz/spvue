@@ -15,8 +15,8 @@
 			</div>
 				
 		<div>
-			<button v-on:click="next"  id="next" class="butNext"> Следующий вопрос &rarr;</button>
-			<button v-on:click="prev" id="prev" class="butPrev">&larr; Предыдущий вопрос</button>		
+			<button v-on:click="next"  id="next" class="butNext hide"> Следующий вопрос &rarr;</button>
+			<button v-on:click="prev" id="prev" class="butPrev hide">&larr; Предыдущий вопрос</button>		
 		</div>	
 		
 				
@@ -26,14 +26,16 @@
 	export default{
 		mounted(){
 			if(this.nextDisabled){
-				document.querySelector('#next').disabled = true;
+				
 			} else {
-				document.querySelector('#next').disabled = false;
+				
+				document.querySelector('#next').classList.remove('hide');
 			};
 			if (this.backDisabled){
 				document.querySelector('#prev').disabled = true;
 			} else {
-				document.querySelector('#prev').disabled = false;
+				
+				document.querySelector('#prev').classList.remove('hide');
 			}
 
 		},
@@ -56,13 +58,15 @@
 			getAnswer(newAnswer, n){
 				
 				if (this.numberOfQuestion != this.numberOfQuestions){
-					document.querySelector('#next').disabled = false;
+					// document.querySelector('#next').disabled = false;
+					document.querySelector('#next').classList.remove('hide');
 				} else{
 					document.querySelector('#next').disabled = true;
 					this.$emit('endOfTest');
 				}
 				if (this.numberOfQuestion != 1){
 					document.querySelector('#prev').disabled = false;
+					document.querySelector('#prev').classList.remove('hide');
 				}
 				let id = '#a' + n;
 				let but = document.querySelector(id);
@@ -84,6 +88,9 @@
 	
 </script>
 <style lang="scss" scoped>
+.hide{
+	display:none;
+}
 .question{
 	position: relative;
 	grid-column: 0/13;
