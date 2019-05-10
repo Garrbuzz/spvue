@@ -233,9 +233,11 @@
 		color:$colBlue;
 	}
 	.subtitle{
+
 		
 		p{
 			font-size: 1.25em;
+			padding-left:3em;
 		}
 	}
 	.go-back{

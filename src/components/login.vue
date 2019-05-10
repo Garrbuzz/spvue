@@ -62,7 +62,7 @@
 			        body.append("pass", pass.value);
 					xhr.onreadystatechange =  () => {
 		            	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-		            		console.log(xhr.responseText);
+		            		console.log('Відповдь ' + xhr.responseText);
 			            	if (xhr.responseText == 'true'){
 					            	this.loginV = true;   	
 					          } else{
