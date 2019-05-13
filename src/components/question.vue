@@ -3,7 +3,7 @@
 		<div class="title">
 			<h4>Вопрос {{numberOfQuestion}}</h4>
 		</div>
-			<div class="title">
+			<div class="questions">
 				<p>{{question}}</p>
 			</div>
 			<div class="ans">
@@ -102,19 +102,26 @@
 .title{
 	display: flex;
 	justify-content: center;
-	border-radius: 1em;
+
 }
+.questions{
+	display: flex;
+	justify-content: center;
+	height: 6em;
+	
+}
+
 .ans{
 	display: flex;
 	justify-content: space-around;
 }
 .butNext, .butPrev{
-	background: #eee;
+	background: none;
 	color:#0095a6;
 	border: none;
 	font-size: 0.8em;
 	position: absolute;
-	bottom: 2em;
+	bottom: -2em;
 	
 }
 .butNext:hover, .butPrev:hover{

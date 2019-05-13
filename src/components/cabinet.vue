@@ -10,10 +10,7 @@
 		 			<td class="td-left">Пользователь:</td>
 		 			<td class="td-right">{{login}}</td>
 		 		</tr>
-		 		<tr>
-		 			<td class="td-left">Дата регистрации:</td>
-		 			<td class="td-right">{{reg_date}}</td>
-		 		</tr>
+		 		
 		 		
 		 	</table>
 		</div>
@@ -95,6 +92,7 @@ export default{
 		.title{
 			grid-column: 1/13;
 			h1{
+				margin-top:2em;
 				font-family: $font;
 				font-weight: 100;
 				color:$colBlue;

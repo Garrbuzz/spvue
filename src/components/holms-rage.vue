@@ -1,5 +1,5 @@
 <template>
-	<section class="grid-12">
+	<section class="grid-12 rage">
 		<div class="flex-hcenter-wrap title">
 			<h1>Тест Холмса-Раге</h1>
 		</div>
@@ -7,7 +7,7 @@
 		<div class="flex-hcenter-wrap cont">
 			<div class = "subtitle">
 				<p>Постарайтесь вспомнить все события, случившиеся с вами в течение последнего года и ответьте на предложенные вопросы</p>
-				<div class="flex-hcenter-wrap">
+				<div class="flex-hcenter-wrap begin">
 					<button class="beginTest" v-on:click="start" id="start">Начать тест</button>
 				</div>
 				
@@ -33,7 +33,7 @@
 			 	
 		</div>
 		<div class="res hide" id = "save">
-			<button id="saveResult" class="beginTest" v-on:click = "saveResult">Сохранить результат</button>	
+			<button id="saveResult" class="beginTest" v-on:click = "saveResult">Сохранить результат </button>	
 			 	
 		</div>
 		
@@ -172,13 +172,15 @@
 			      	let body = new FormData();
 			      	body.append("testName", 'holmsRage'); 
 			      	body.append("testRes", this.resTest); 
+			      	alert(this.resTest);
 			      	xhr.withCredentials = true; 
 			        xhr.open('post', window.location.origin + '/php/saveresult.php', false);
 			        xhr.send(body);
 			        if (xhr.status != 200) {
+			        	alert(xhr.status)
 			        } else {
 			          	let res = JSON.parse(xhr.responseText);
-			          	console.log(res);
+			          	console.log('res: ' + res);
 			            	
 			            alert('Результ теста : ' + this.resTest + '.  Результ успешно сохранен');
 			            this.$emit('backToTests');
@@ -202,7 +204,9 @@
 	.title{
 		grid-column:1/13;
 	}
-
+	.rage{
+		margin-top: 2em;
+	}
 	.cont, .res{
 		grid-column:1/13;
 		
@@ -258,6 +262,9 @@
 		background:#eee;
 		// height: 10em;
 	}
+.begin{
+	margin-top: 2.5em;
+}	
 
 .progress{
 	height: 3em;

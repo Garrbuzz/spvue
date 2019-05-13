@@ -3,9 +3,9 @@
 		<div class="flex-hcenter-wrap title">
 			<h1>Тесты</h1>
 		</div>
-		<div class="go-back" v-on:click="$emit('backToCab')">
-			<span>&larr;</span>&nbsp;назад
-		</div>
+			<!-- <div class="go-back" v-on:click="$emit('backToCab')">
+				<span>&larr;</span>&nbsp;назад
+			</div> -->
 		<div class="cont flex-hcenter-wrap">
 			<div class="list-of-tests">
 				<p v-on:click="clickTest('holmsRage')">Тест Холмса-Раге</p>
@@ -45,6 +45,7 @@
 	}
 	.title{
 		grid-column:1/13;
+		margin-top:2em;
 	}
 	.cont{
 		grid-column:1/13;
