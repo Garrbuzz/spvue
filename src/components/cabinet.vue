@@ -9,9 +9,11 @@
 		 		<tr>
 		 			<td class="td-left">Пользователь:</td>
 		 			<td class="td-right">{{login}}</td>
-
 		 		</tr>
-		 		
+		 		<tr>
+		 			чмчсмчсмчсм
+		 			
+		 		</tr>
 		 		
 		 	</table>
 		</div>
@@ -41,20 +43,25 @@ export default{
           xhr.send(body);
           if (xhr.status != 200) {
           } else {
-          		let userInfo = JSON.parse(xhr.responseText);
-          		let tttt = userInfo;
-          		console.log('ttttt');
-          		console.log(tttt);
-            	// this.reg_date = userInfo['r']['[reg_date]'];
-            	// this.login = userInfo['login'];
-            	// console.log('ім`я користувача: '  + userInfo['login']);
+          		let responce = JSON.parse(xhr.responseText);
+          		let userInfo = responce.r;
+          		let testResult = responce.t;
+          		console.log('userInfo');
+          		console.log(userInfo);
+          		console.log('testResult');
+          		console.log(testResult);
+          		console.log('aadadad' + testResult[2].test_id);
+          		this.login = userInfo['login'];
+
+
       	}
 	},
 	data(){
 		return{
 			login:'',
 			reg_date:'',
-			state:''
+			state:'',
+			tests:[]
 		}
 	},
 	methods:{
