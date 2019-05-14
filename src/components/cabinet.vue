@@ -12,9 +12,11 @@
 		 		</tr>
 		 		<tr class = "tests-title">
 		 			Пройденные тесты:
-		 			
 		 		</tr>
-		 		<tr>
+		 		<tr v-for="(fields, i) of testsName">
+		 			<td> {{testsName[i]}} </td>
+		 			<td>{{testsDate[i]}}</td>
+		 			<td>{{testsRes[i]}}</td>
 		 			
 		 		</tr>
 		 		
@@ -49,12 +51,16 @@ export default{
           		let responce = JSON.parse(xhr.responseText);
           		let userInfo = responce.r;
           		let testResult = responce.t;
-          		console.log('userInfo');
-          		console.log(userInfo);
-          		console.log('testResult');
-          		console.log(testResult);
-          		console.log('aadadad' + testResult[1].test_id);
           		this.login = userInfo['login'];
+          		for (let i = 0;  i < testResult.length; i++) {
+          			this.testsName[i] = testResult[i].test_id;
+
+          			this.testsDate[i] = testResult[i].date;
+
+          			this.testsRes[i] = testResult[i].result;
+          			this.tests[i] = i;
+
+          		}
 
 
       	}
@@ -64,6 +70,9 @@ export default{
 			login:'',
 			reg_date:'',
 			state:'',
+			testsName:[],
+			testsDate:[],
+			testsRes:[],
 			tests:[]
 		}
 	},
