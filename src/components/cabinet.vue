@@ -10,8 +10,11 @@
 		 			<td class="td-left">Пользователь:</td>
 		 			<td class="td-right">{{login}}</td>
 		 		</tr>
+		 		<tr class = "tests-title">
+		 			Пройденные тесты:
+		 			
+		 		</tr>
 		 		<tr>
-		 			чмчсмчсмчсм
 		 			
 		 		</tr>
 		 		
@@ -50,7 +53,7 @@ export default{
           		console.log(userInfo);
           		console.log('testResult');
           		console.log(testResult);
-          		console.log('aadadad' + testResult[2].test_id);
+          		console.log('aadadad' + testResult[1].test_id);
           		this.login = userInfo['login'];
 
 
@@ -98,7 +101,11 @@ export default{
 		flex-wrap: wrap;
 	}
 
-
+	.tests-title{
+		color:$colBlue;
+		font-size: 1.2em;
+		text-align: center;
+	}
 	.cabinet{
 		.title{
 			grid-column: 1/13;
@@ -113,8 +120,8 @@ export default{
 		.cont-1{
 			grid-column: 2/12;
 			.td-left{
-				width: 15em;
-				padding: 0.5em 0	em;
+				width: 18em;
+				padding: 0.5em 0;
 				color:$colBlue;
 				font-size:0.8em;
 			}
