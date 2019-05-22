@@ -11,12 +11,21 @@
 		 			<td class="td-right">{{login}}</td>
 		 		</tr>
 		 		<tr class = "tests-title">
-		 			Пройденные тесты:
+		 			
+		 			<td>Пройденные тесты:</td>
+		 			<td></td>
+		 			
 		 		</tr>
-		 		<tr v-for="(fields, i) of testsName">
+		 		<tr class = "tests-title">
+		 			<td>Тест</td>
+		 			<td>Дата</td>
+		 			<td>Результат</td>
+
+		 		</tr>
+		 		<tr class="tests-res" v-for="(fields, i) of testsName">
 		 			<td> {{testsName[i]}} </td>
-		 			<td>{{testsDate[i]}}</td>
-		 			<td>{{testsRes[i]}}</td>
+		 			<td  class="res">{{testsDate[i]}}</td>
+		 			<td class="res">{{testsRes[i]}}</td>
 		 			
 		 		</tr>
 		 		
@@ -58,7 +67,7 @@ export default{
           			this.testsDate[i] = testResult[i].date;
 
           			this.testsRes[i] = testResult[i].result;
-          			this.tests[i] = i;
+          			
 
           		}
 
@@ -78,7 +87,7 @@ export default{
 	},
 	methods:{
 	    logout(){
-	    	alert('logout');
+	    	
 	        let xhr = new XMLHttpRequest();
 	      	let body = new FormData();
 	      	body.append("type", encodeURIComponent('logout')); 
@@ -113,6 +122,13 @@ export default{
 	.tests-title{
 		color:$colBlue;
 		font-size: 1.2em;
+		text-align: center;
+	}
+	.tests-res{
+		color:$colBlue;
+		font-size: 0.8em;
+	}
+	.res{
 		text-align: center;
 	}
 	.cabinet{

@@ -172,12 +172,11 @@
 			      	let body = new FormData();
 			      	body.append("testName", 'holmsRage'); 
 			      	body.append("testRes", this.resTest); 
-			      	alert(this.resTest);
-			      	xhr.withCredentials = true; 
+			       	xhr.withCredentials = true; 
 			        xhr.open('post', window.location.origin + '/php/saveresult.php', false);
 			        xhr.send(body);
 			        if (xhr.status != 200) {
-			        	alert(xhr.status)
+			        	
 			        } else {
 			          	let res = JSON.parse(xhr.responseText);
 			          	console.log('res: ' + res);
